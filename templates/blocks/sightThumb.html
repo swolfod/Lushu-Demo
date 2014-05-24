@@ -1,0 +1,38 @@
+{% load i18n %}
+
+<div class="col-sm-6 col-md-4">
+  <div class="thumbnail">
+    <img alt="{{ sight.title }}" src="{{ sight.pic }}" style="width: 320px; height: 240px;" />
+    <div class="caption">
+      <h3>{{ sight.title }}</h3>
+      <p>{% trans "Rating" %}: {{ sight.rating }}</p>
+      <p>
+        {% trans "Recommended Visit Duration" %}:
+
+        {% if sight.minDuration == sight.maxDuration %}
+            {{ sight.minDuration }} {% trans "days" %}
+        {% else %}
+          {{ sight.minDuration }} - {{ sight.maxDuration }} {% trans "days" %}
+        {% endif %}
+      </p>
+
+      <div class="container-fluid">
+        <div class="row">
+          <span data-toggle="buttons">
+            {% if sight.toVisit %}
+                <label class="btn btn-primary col-lg-3 col-lg-offset-2 col-xs-5 active" >
+                  <input type="checkbox" name="{{ sight.id }}" checked="checked" class="btn btn-primary" /> {% trans "Visit" %}
+                </label>
+            {% else %}
+                <label class="btn btn-primary col-lg-3 col-lg-offset-2 col-xs-5" >
+                  <input type="checkbox" name="{{ sight.id }}" class="btn btn-primary" /> {% trans "Visit" %}
+                </label>
+            {% endif %}
+          </span>
+
+          <a href="#" class="btn btn-default col-lg-3 col-lg-offset-2 col-xs-5  col-xs-offset-2" role="button">{% trans "Sight Details" %}</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

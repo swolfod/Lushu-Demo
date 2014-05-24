@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% load i18n %}
+
+{% block head %}
+  <link href="{% static 'css/home.css' %}" rel="stylesheet" media="screen">
+{% endblock %}
+
+{% block main %}
+  <div id="travelerInfo" class="row">
+    <div class="col-xs-8 col-xs-offset-2 col-lg-4 col-lg-offset-4">
+      <form role="form" id="mainForm" action="{% url "Lushu.views.selSights" %}" method="get">
+        <div class="form-group">
+            <input type="text" id="txtDepart" name="depart" class="form-control" autocomplete="off" placeholder={% trans "Depart City" %} />
+        </div>
+        {% if invalid.destination %}
+            <div class="form-group has-error">
+        {% else %}
+          <div class="form-group">
+        {% endif %}
+          <select id="selDestination" name="destination" class="form-control">
+            <option selected disabled>{% trans "Destination" %}</option>
+              {% for city in majorCities %}
+                <option value="{{ city.id }}">{{ city.name_en }} - {{ city.name_cn }}</option>
+              {% endfor %}
+          </select>
+        </div>
+        <div class="form-group">
+            <input type="text" id="txtDepartDate" name="departDate" class="form-control" autocomplete="off" placeholder={% trans "Depart Date" %} />
+        </div>
+        <div class="form-group">
+            <input type="text" id="txtDuration" name="duration" class="form-control" autocomplete="off" placeholder={% trans "Trip Duration" %} />
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-primary pull-right">{% trans "Start Planning" %}</button>
+        </div>
+      </form>
+    </div><!-- /.col-lg-4 -->
+  </div><!-- /.row -->
+
+  <script type="text/javascript">
+    /*var substringMatcher = function(strs) {
+      return function findMatches(q, cb) {
+        var matches, substringRegex;
+
+        // an array that will be populated with substring matches
+        matches = [];
+
+        // regex used to determine if a string contains the substring `q`
+        substrRegex = new RegExp(q, 'i');
+        // iterate through the pool of strings and for any string that
+        // contains the substring `q`, add it to the `matches` array
+        $.each(strs, function(i, str) {
+          if (substrRegex.test(str)) {
+            // the typeahead jQuery plugin expects suggestions to a
+            // JavaScript object, refer to typeahead docs for more info
+            matches.push({ value: str });
+          }
+        });
+
+        return cb(matches);
+      };
+    };
+
+    var states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California',
+      'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii',
+      'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana',
+      'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota',
+      'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire',
+      'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota',
+      'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island',
+      'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont',
+      'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
+    ];
+
+    $('#txtCity').typeahead(
+        {
+          source: function (query, process) {
+            process(states);
+          }
+        });
+
+    $('#dp1').datepicker();
+    $('#dp2').datepicker();*/
+  </script>
+{% endblock %}

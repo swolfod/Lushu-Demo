@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% load i18n %}
+
+{% block head %}
+  <link href="{% static 'css/selSights.css' %}" rel="stylesheet" media="screen">
+{% endblock %}
+
+{% block main %}
+
+  {% if noSightsError %}
+    <div class="alert alert-warning alert-dismissable">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <strong>{% trans "Please select at least one sight to visit." %}</strong>
+    </div>
+  {% endif %}
+
+  <form id="mainForm" method="post">
+    {% csrf_token %}
+    <div id="sights" class="tab-content">
+      <ul id="navSights" class="nav nav-tabs">
+        <li class="active col-xs-4"><a href="#cites" data-toggle="tab">{% trans "Cities" %}</a></li>
+        <li class="col-xs-4"><a href="#nationalParks" data-toggle="tab">{% trans "National Parks" %}</a></li>
+        <li class="col-xs-4"><a href="#outlets" data-toggle="tab">{% trans "Outlets" %}</a></li>
+      </ul>
+
+      <div class="tab-pane active" id="cities">
+        <div class="row">
+            {% for sightCity in citySights %}
+                {% include "blocks/sightThumb.html" with sight=sightCity %}
+            {% endfor %}
+        </div>
+      </div>
+      <div class="tab-pane" id="nationalParks">
+          {% for sightPark in parkSights %}
+              {% include "blocks/sightThumb.html" with sight=sightPark %}
+          {% endfor %}
+      </div>
+      <div class="tab-pane" id="outlets">
+          {% for outlet in outletSights %}
+              {% include "blocks/sightThumb.html" with sight=outlet %}
+          {% endfor %}
+      </div>
+      <div class="clearfix"></div>
+    </div>
+  </form>
+{% endblock %}

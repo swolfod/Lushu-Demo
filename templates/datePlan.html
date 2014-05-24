@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% load i18n %}
+
+{% block head %}
+  <link href="{% static 'css/datePlan.css' %}" rel="stylesheet" media="screen">
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVzkS9fJtCinveTrOC1YM7_4BJ4f86R1o&sensor=FALSE&language=en" type="text/javascript"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
+{% endblock %}
+
+{% block main %}
+  <div id="datePlan" class="container-fluid">
+    <div id="map" class="col-md-5 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-12"></div>
+
+  {% if noSightsError %}
+    <div class="alert alert-warning alert-dismissable">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <strong>{% trans "Please select at least one sight to visit." %}</strong>
+    </div>
+  {% endif %}
+
+  {% if noSightsError %}
+    <div class="alert alert-warning alert-dismissable">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <strong>{% trans "Please put in the number of days for visiting." %}</strong>
+    </div>
+  {% endif %}
+
+  <div id="planInfo" class="col-md-4 col-md-offset-1 col-sm-12">
+    <form id="mainForm" method="post">
+      {% csrf_token %}
+      <ul id="routeList" class="list-group">
+        {% for sight in sights %}
+          <li data-key="{{ sight.key }}" class="list-group-item">
+            <button type="button" class="close" data-dismiss="alert" onclick="updateSight('{{ sight.key }}'); return true;" aria-hidden="true">&times;</button>
+            <b>{{ sight.title }}</b> {% trans "for" %}
+            <input type="text" class="form-control" name="duration-{{ sight.key }}" value="{{ sight.duration }}" /> {% trans "days" %}
+          </li>
+        {% endfor %}
+      </ul>
+      <input type="hidden" id="hdnOrder" name="order" value="{{ sightsOrder }}" />
+      <input type="hidden" id="hdnDistances" name="distances" value="{{ sightsDistances }}" />
+    </form>
+
+    <div class="clearfix"></div>
+  </div>
+
+  </div>
+
+  <script type="text/javascript">
+    var sights = {{ sightsJson|safe }};
+    var directionsService = new google.maps.DirectionsService();
+    var directionsDisplay = new google.maps.DirectionsRenderer();
+
+    function recalcRoute() {
+      var waypts  = [];
+      var request = {
+        optimizeWaypoints: false,
+        travelMode: google.maps.TravelMode.DRIVING,
+        unitSystem: google.maps.UnitSystem.METRIC
+      };
+
+      for(var i = 0; i < sights.length; i++) {
+        var address = new google.maps.LatLng(sights[i].lat, sights[i].lng);
+        if (i == 0)
+          request.origin = address;
+        else if (i == sights.length - 1)
+          request.destination = address;
+        else
+          waypts.push({
+            location: address,
+            stopover: true
+          });
+      }
+
+      request.waypoints = waypts;
+
+      directionsService.route(request, function(response, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+          directionsDisplay.setDirections(response);
+
+          var route = response.routes[0];
+          var distances = ""
+
+          // For each route, display summary information.
+          for (var i = 0; i < route.legs.length; i++) {
+            if (i > 0)
+              distances += ", ";
+            distances += route.legs[i].distance.value;
+          }
+
+          $("#hdnDistances").val(distances);
+        }
+      });
+    }
+
+    function updateSight(toRemove) {
+      var newSights = [];
+
+      var orderStr = "";
+      $('li', routeList).each(function(index, elem) {
+        var listItem = $(elem);
+        var newIndex = listItem.index();
+
+        var sightId = listItem.attr("data-key");
+        if (toRemove && sightId == toRemove)
+          return;
+
+        if (index > 0)
+          orderStr += ", ";
+        orderStr += sightId;
+
+        for(var i = 0; i < sights.length; i++) {
+          if (sights[i].key == sightId) {
+            newSights.push(sights[i]);
+            break;
+          }
+        }
+      });
+
+      $("#hdnOrder").val(orderStr);
+      $("#hdnDistances").val("");
+
+      sights = newSights;
+      recalcRoute();
+    }
+
+    function initialize() {
+      var myLatlng = new google.maps.LatLng(sights[0].lat, sights[0].lng);
+      var mapOptions = {
+        zoom: 4,
+        center: myLatlng
+      };
+
+      var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+      var latlngbounds = new google.maps.LatLngBounds();
+
+      for(var i = 0; i < sights.length; i++) {
+        var sightCoord = new google.maps.LatLng(sights[i].lat, sights[i].lng);
+        latlngbounds.extend(sightCoord);
+      }
+
+      map.setCenter(latlngbounds.getCenter());
+      map.fitBounds(latlngbounds);
+
+      directionsDisplay.setMap(map);
+      recalcRoute();
+  }
+
+  var routeList = $("#routeList");
+    routeList.sortable({
+    update: updateSight
+  });
+
+  google.maps.event.addDomListener(window, 'load', initialize);
+  </script>
+{% endblock %}
