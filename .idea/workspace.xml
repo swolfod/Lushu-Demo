@@ -7,7 +7,7 @@
     </list>
     <ignored path="Lushu.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1401350067368" ignored="false" />
+    <file path="/Dummy.txt" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1401350176655" ignored="false" />
     <file path="/settings.py" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1400946913169" ignored="false" />
     <file path="/a.dummy" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1401347537374" ignored="false" />
     <file path="/landing.py" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1400536240895" ignored="false" />
@@ -136,7 +136,7 @@
       <file leaf-file-name="datePlan.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/datePlan.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="188" column="16" selection-start="6739" selection-end="6739" vertical-scroll-proportion="6.436036">
+            <state line="184" column="31" selection-start="6699" selection-end="6699" vertical-scroll-proportion="0.6918919">
               <folding />
             </state>
           </provider>
@@ -650,7 +650,11 @@
       <created>1401350069584</created>
       <updated>1401350069584</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="touch sortable testing 4&#10;">
+      <created>1401350179365</created>
+      <updated>1401350179365</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -852,7 +856,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/datePlan.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="188" column="16" selection-start="6739" selection-end="6739" vertical-scroll-proportion="6.436036">
+        <state line="184" column="31" selection-start="6699" selection-end="6699" vertical-scroll-proportion="0.6918919">
           <folding />
         </state>
       </provider>
