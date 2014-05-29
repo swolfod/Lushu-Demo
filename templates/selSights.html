@@ -45,4 +45,19 @@
       <div class="clearfix"></div>
     </div>
   </form>
+
+  <script type="text/javascript">
+    function initialize() {
+      $(".sightChk").change(function() {
+        var ele = $(this);
+        var thumbEle = ele.closest("div.thumbnail");
+        if (ele.is(":checked"))
+          thumbEle.addClass("active");
+        else
+          thumbEle.removeClass("active");
+      });
+    }
+
+    $(document).ready(initialize);
+  </script>
 {% endblock %}

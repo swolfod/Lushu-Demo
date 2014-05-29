@@ -6,3 +6,13 @@
 .nav-tabs, .nav-pills {
     text-align:center;
 }
+
+.thumbnail
+{
+    height: 420px;
+}
+
+.thumbnail.active {
+    border-color: #9ecaed;
+    box-shadow: 0 0 10px #9ecaed;
+}
