@@ -11,41 +11,40 @@
 
 {% block main %}
   <div id="datePlan" class="container-fluid">
+    {% if noSightsError %}
+      <div class="alert alert-warning alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <strong>{% trans "Please select at least one sight to visit." %}</strong>
+      </div>
+    {% endif %}
+
+    {% if noSightsError %}
+      <div class="alert alert-warning alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <strong>{% trans "Please put in the number of days for visiting." %}</strong>
+      </div>
+    {% endif %}
+
+    <div id="planInfo" class="col-md-4 col-md-offset-1 col-xs-12">
+      <form id="mainForm" method="post">
+        {% csrf_token %}
+        <ul id="routeList" class="list-group">
+          {% for sight in sights %}
+            <li data-key="{{ sight.key }}" class="list-group-item">
+              <button type="button" class="close" data-dismiss="alert" onclick="updateSight('{{ sight.key }}'); return true;" aria-hidden="true">&times;</button>
+              <b>{{ sight.title }}</b> {% trans "for" %}
+              <input type="text" class="form-control" name="duration-{{ sight.key }}" value="{{ sight.duration }}" /> {% trans "days" %}
+            </li>
+          {% endfor %}
+        </ul>
+        <input type="hidden" id="hdnOrder" name="order" value="{{ sightsOrder }}" />
+        <input type="hidden" id="hdnDistances" name="distances" value="{{ sightsDistances }}" />
+      </form>
+
+      <div class="clearfix"></div>
+    </div>
+
     <div id="map" class="col-md-5 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-12"></div>
-
-  {% if noSightsError %}
-    <div class="alert alert-warning alert-dismissable">
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-      <strong>{% trans "Please select at least one sight to visit." %}</strong>
-    </div>
-  {% endif %}
-
-  {% if noSightsError %}
-    <div class="alert alert-warning alert-dismissable">
-      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-      <strong>{% trans "Please put in the number of days for visiting." %}</strong>
-    </div>
-  {% endif %}
-
-  <div id="planInfo" class="col-md-4 col-md-offset-1 col-xs-12">
-    <form id="mainForm" method="post">
-      {% csrf_token %}
-      <ul id="routeList" class="list-group">
-        {% for sight in sights %}
-          <li data-key="{{ sight.key }}" class="list-group-item">
-            <button type="button" class="close" data-dismiss="alert" onclick="updateSight('{{ sight.key }}'); return true;" aria-hidden="true">&times;</button>
-            <b>{{ sight.title }}</b> {% trans "for" %}
-            <input type="text" class="form-control" name="duration-{{ sight.key }}" value="{{ sight.duration }}" /> {% trans "days" %}
-          </li>
-        {% endfor %}
-      </ul>
-      <input type="hidden" id="hdnOrder" name="order" value="{{ sightsOrder }}" />
-      <input type="hidden" id="hdnDistances" name="distances" value="{{ sightsDistances }}" />
-    </form>
-
-    <div class="clearfix"></div>
-  </div>
-
   </div>
 
   <script type="text/javascript">
