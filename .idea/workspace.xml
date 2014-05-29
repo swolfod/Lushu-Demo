@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" name="Default" comment="">
+    <list default="true" id="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" name="Default" comment="touch sortable testing 11&#10;">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/css/datePlan.css" afterPath="$PROJECT_DIR$/static/css/datePlan.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/datePlan.html" afterPath="$PROJECT_DIR$/templates/datePlan.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/detailPlan.html" afterPath="$PROJECT_DIR$/templates/detailPlan.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Lushu.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1401351155944" ignored="false" />
+    <file path="/Dummy.txt" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1401351368749" ignored="false" />
     <file path="/settings.py" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1400946913169" ignored="false" />
     <file path="/a.dummy" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1401350910395" ignored="false" />
     <file path="/landing.py" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1400536240895" ignored="false" />
@@ -57,7 +59,7 @@
     <file path="/utils.py" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1400821217479" ignored="false" />
     <file path="/djangoUtils.py" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1400919264484" ignored="false" />
     <file path="/datePlan.html" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1401351137978" ignored="false" />
-    <file path="/datePlan.css" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1401351001066" ignored="false" />
+    <file path="/datePlan.css" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1401351439656" ignored="false" />
     <file path="/a.html" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1401339819524" ignored="false" />
     <file path="/detailPlan.html" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1401339721694" ignored="false" />
     <file path="I:/PycharmProjects/NationalScraper/wikiNationalScraper.py" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1401057936000" ignored="false" />
@@ -127,7 +129,7 @@
       <file leaf-file-name="datePlan.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/datePlan.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="157" column="63" selection-start="5224" selection-end="5224" vertical-scroll-proportion="0.6566265">
+            <state line="44" column="13" selection-start="2122" selection-end="2122" vertical-scroll-proportion="0.7710843">
               <folding />
             </state>
           </provider>
@@ -154,7 +156,7 @@
       <file leaf-file-name="datePlan.css" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/static/css/datePlan.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="1" selection-start="87" selection-end="87" vertical-scroll-proportion="0.0">
+            <state line="12" column="23" selection-start="119" selection-end="119" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -163,7 +165,7 @@
       <file leaf-file-name="detailPlan.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/detailPlan.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="50" column="57" selection-start="2524" selection-end="2524" vertical-scroll-proportion="-12.071428">
+            <state line="345" column="27" selection-start="12943" selection-end="12943" vertical-scroll-proportion="-26.321428">
               <folding />
             </state>
           </provider>
@@ -221,7 +223,6 @@
         <option value="$PROJECT_DIR$/templates/home.html" />
         <option value="$PROJECT_DIR$/static/css/bootstrap.css" />
         <option value="$PROJECT_DIR$/templates/emailBody.html" />
-        <option value="$PROJECT_DIR$/templates/detailPlan.html" />
         <option value="$PROJECT_DIR$/templates/blocks/sightThumb.html" />
         <option value="$PROJECT_DIR$/templates/selSights.html" />
         <option value="$PROJECT_DIR$/static/css/selSights.css" />
@@ -229,8 +230,9 @@
         <option value="$PROJECT_DIR$/Lushu/views/getPlan.py" />
         <option value="$PROJECT_DIR$/templates/base.html" />
         <option value="$PROJECT_DIR$/static/js/base.js" />
-        <option value="$PROJECT_DIR$/static/css/datePlan.css" />
         <option value="$PROJECT_DIR$/static/js/jquery.ui.touch-punch.min.js" />
+        <option value="$PROJECT_DIR$/templates/detailPlan.html" />
+        <option value="$PROJECT_DIR$/static/css/datePlan.css" />
         <option value="$PROJECT_DIR$/templates/datePlan.html" />
       </list>
     </option>
@@ -687,7 +689,11 @@
       <created>1401351157841</created>
       <updated>1401351157841</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="touch sortable testing 11&#10;">
+      <created>1401351224928</created>
+      <updated>1401351224928</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -752,7 +758,7 @@
     <option name="MAXIMUM_HISTORY_ROWS" value="1000" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="touch sortable testing 10&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="touch sortable testing 11&#10;" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -779,6 +785,7 @@
     <MESSAGE value="touch sortable testing 8&#10;" />
     <MESSAGE value="touch sortable testing 9&#10;" />
     <MESSAGE value="touch sortable testing 10&#10;" />
+    <MESSAGE value="touch sortable testing 11&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -865,23 +872,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/detailPlan.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="57" selection-start="2524" selection-end="2524" vertical-scroll-proportion="-12.071428">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/static/css/detailPlan.css">
       <provider selected="true" editor-type-id="text-editor">
         <state line="8" column="1" selection-start="78" selection-end="78" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/static/css/datePlan.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="1" selection-start="87" selection-end="87" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -893,9 +886,23 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/templates/detailPlan.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="345" column="27" selection-start="12943" selection-end="12943" vertical-scroll-proportion="-26.321428">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/css/datePlan.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="23" selection-start="119" selection-end="119" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/templates/datePlan.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="157" column="63" selection-start="5224" selection-end="5224" vertical-scroll-proportion="0.6566265">
+        <state line="44" column="13" selection-start="2122" selection-end="2122" vertical-scroll-proportion="0.7710843">
           <folding />
         </state>
       </provider>

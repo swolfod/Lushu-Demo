@@ -8,6 +8,11 @@
     display: inline;
 }
 
+#map
+{
+    margin-bottom: 20px;
+}
+
 #routeList span.glyphicon
 {
     margin-right: 5px;
