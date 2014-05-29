@@ -1,0 +1,36 @@
+{% load i18n %}
+
+{% for dayPlan in dayPlans %}
+  <h4>
+    {% trans "Day" %} {{ forloop.counter }}
+  </h4>
+  <ul id="plan{{ forloop.counter }}" class="list-group">
+    {% for step in dayPlan %}
+      {% if step.stepType == "depart" %}
+        <li class="liLastStay list-group-item" id="lastStay{{ forloop.counter }}" data-cityId="{{ step.cityId }}" data-address='{{ step.address }}'>
+          <h4 class="list-group-item-heading">
+            Depart {{ step.address }}
+          </h4>
+        </li>
+      {% elif step.stepType == "sight" %}
+        <li class="liSight list-group-item" data-key="{{ step.key }}" data-type="{{ step.type }}" data-lng="{{ step.lng }}" data-lat="{{ step.lat }}">
+          <h4 class="list-group-item-heading">
+            {{ step.title }}
+          </h4>
+          <p class="list-group-item-text">{{ step.description }}</p>
+        </li>
+      {% elif step.stepType == "stay" %}
+        <li class="liLastStay list-group-item" id="lastStay{{ forloop.counter }}" data-cityId="{{ step.cityId }}" data-address='{{ step.address }}'>
+          <h4 class="list-group-item-heading">
+            Depart {{ step.address }}
+          </h4>
+        </li>
+      {% elif step.stepType == "way" %}
+        <li class='liWay list-group-item' data-duration='{{ step.duration }}'>
+          <span class='glyphicon glyphicon-arrow-right'></span>
+          {% trans "Driving" %}: {{ step.durationMin }} {% trans "minutes" %}
+        </li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+{% endfor %}

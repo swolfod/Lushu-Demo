@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% load i18n %}
+
+{% block head %}
+  <link href="{% static 'css/home.css' %}" rel="stylesheet" media="screen">
+{% endblock %}
+
+{% block main %}
+  <div class="jumbotron">
+    <h1>{% trans "Email Sent!" %}</h1>
+    <p>{% trans "A copy of the your plan had been sent to your email." %}</p>
+    <p><a class="btn btn-primary btn-lg" role="button" href="/">{% trans "Home" %}</a></p>
+  </div>
+{% endblock %}

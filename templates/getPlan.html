@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% load staticfiles %}
+{% load i18n %}
+
+{% block head %}
+  <link href="{% static 'css/getPlan.css' %}" rel="stylesheet" media="screen">
+{% endblock %}
+
+{% block main %}
+
+  {% if invliadEmail %}
+    <div class="alert alert-warning alert-dismissable">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <strong>{% trans "Please put in a valid email address." %}</strong>
+    </div>
+  {% endif %}
+
+  <form role="form" method="post">
+    {% csrf_token %}
+    <div class="form-group {% if invliadEmail %}has-error{% endif %}">
+      <label for="inputEmail">{% trans "Please provide the email address you want the plan sent to" %}</label>
+      <input type="email" name="email" class="form-control" id="inputEmail" placeholder="{% trans "Enter email" %}">
+    </div>
+    <button type="submit" class="btn btn-primary">{% trans "Send Email" %}</button>
+  </form>
+
+  {% include "blocks/planLayout.html" with dayPlans=dayPlans %}
+{% endblock %}
