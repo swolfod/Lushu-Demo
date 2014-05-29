@@ -5,3 +5,4 @@ from .homePage import homePage
 from .selSights import selSights
 from .datePlanning import datePlanning
 from .detailPlanning import detailPlanning
+from .getPlan import getPlan

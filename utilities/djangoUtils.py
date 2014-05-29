@@ -262,6 +262,7 @@ def calcDistance(lng1, lat1, lng2, lat2):
     c = 2 * atan2(sqrt(a), sqrt(1-a))
     return 6373.0 * c
 
+
 def isNumber(s):
     try:
         float(s)

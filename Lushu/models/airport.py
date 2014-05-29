@@ -19,5 +19,9 @@ class Airport(models.Model):
     latitude = models.FloatField()
     international = models.BooleanField()
 
+    @property
+    def title(self):
+        return self.name_en
+
     class Meta:
         db_table = "airport"

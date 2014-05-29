@@ -2,10 +2,387 @@
 
 {% load staticfiles %}
 {% load i18n %}
+{% load returnItem %}
 
 {% block head %}
   <link href="{% static 'css/detailPlan.css' %}" rel="stylesheet" media="screen">
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVzkS9fJtCinveTrOC1YM7_4BJ4f86R1o&sensor=FALSE&language=en" type="text/javascript"></script>
 {% endblock %}
 
 {% block main %}
+  <div id="detailPlan" class="row">
+    <div id="dayTabs" class="col-xs-3">
+      <ul id="navSights" class="nav nav-pills nav-stacked">
+        {% for day in plan %}
+          <li {% if forloop.counter == 1 %}class="active"{% endif %}><a href="#detail{{ forloop.counter }}" data-toggle="tab">{% trans "Day" %} {{ forloop.counter }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+    <div id="tabDetails" class="tab-content col-xs-9">
+      {% for day in plan %}
+        <div id="detail{{ forloop.counter }}" class="tab-pane plan-pane container-fluid {% if forloop.counter == 1 %}active{% endif %}" >
+          <div class="row">
+            <ul id="plan{{ forloop.counter }}" class="list-group col-md-4">
+              {% with dayBefore=forloop.counter0|add:"-1" %}
+                {% with stay=stays|return_item:dayBefore %}
+                  {% if dayBefore >= 0 and stay %}
+                    <li class="liLastStay list-group-item" id="lastStay{{ forloop.counter }}" data-cityId="{{ stay.recommend.id }}" data-address='{{ stay.recommend.city }}, {{ stay.recommend.state }}'>
+                      <h4 class="list-group-item-heading">
+                        <img class="adp-marker" />
+                        Depart {{ stay.recommend.city }}, {{ stay.recommend.state }}
+                      </h4>
+                    </li>
+                  {% endif %}
+                {% endwith %}
+              {% endwith %}
+              {% for sight in day %}
+                <li class="liSight list-group-item" data-key="{{ sight.key }}" data-type="{{ sight.type }}" data-lng="{{ sight.lng }}" data-lat="{{ sight.lat }}">
+                  <h4 class="list-group-item-heading">
+                    <img class="adp-marker" />
+                    {{ sight.title }}
+                  </h4>
+                  {% if sight.duration > 0 %}
+                    <p class="list-group-item-text">{{ sight.duration }} hours</p>
+                  {% endif %}
+                </li>
+              {% endfor %}
+              {% with stay=stays|return_item:forloop.counter0 %}
+                {% if stay %}
+                  <li class="liStay list-group-item" id="stay{{ forloop.counter }}" data-cityId="{{ stay.recommend.id }}" data-address='{{ stay.recommend.city }}, {{ stay.recommend.state }}'>
+                    <a href="#" onclick="selStay({{ forloop.counter }});return false;">
+                      <h4 class="list-group-item-heading">
+                        <img class="adp-marker" />
+                        Stay in {{ stay.recommend.city }}, {{ stay.recommend.state }}
+                      </h4>
+                      <p class="list-group-item-text">
+                        {% for fromSight in stay.recommend.location %}
+                          {% if fromSight.distance %}
+                            {{ fromSight.distance }}km {% trans "From" %} {{ fromSight.sightTitle }}
+                          {% endif %}
+                        {% endfor %}
+                      </p>
+                    </a>
+                  </li>
+                {% endif %}
+              {% endwith %}
+            </ul>
+            <div id="map{{ forloop.counter }}" class="planMap col-md-8"> </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    <div class="modal fade" id="selStayModal" tabindex="-1" role="dialog" aria-labelledby="selStayTitle" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="selStayTitle">{% trans "Select where to stay" %}</h4>
+          </div>
+          <div class="modal-body">
+            <div id="stayCandidates" class="list-group">
+
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Cancel" %}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <form id="mainForm" method="post">
+    {% csrf_token %}
+
+    {% for day in plan %}
+      <input type="hidden" id="hdnDay{{ forloop.counter }}" name="planDay{{ forloop.counter }}" />
+    {% endfor %}
+  </form>
+
+  <script type="text/javascript">
+    var stays = {{ staysJson|safe }};
+
+    function markerUrl(idx) {
+      var markerTxt = String.fromCharCode("A".charCodeAt(0) + idx);
+      return "https://mts.googleapis.com/vt/icon/name=icons/spotlight/spotlight-waypoint-a.png&text=" + markerTxt + "&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1";
+    }
+
+    function recordPlan(dayIdx) {
+      var planList = $("#plan" + dayIdx);
+      var planItems = planList.find("> li.list-group-item");
+      var plan = [];
+      planItems.each(function(index, ele) {
+        ele = $(ele);
+        if (ele.hasClass("liLastStay")) {
+          var step = {
+            stepType: "depart",
+            cityId: ele.attr("data-cityId"),
+            address: ele.attr("data-address")
+          };
+
+          plan.push(step);
+        }
+        else if (ele.hasClass("liSight")) {
+          var step = {
+            stepType: "sight",
+            key: ele.attr("data-key"),
+            type: ele.attr("data-type"),
+            lng: ele.attr("data-lng"),
+            lat: ele.attr("data-lat"),
+            title: ele.find("h4.list-group-item-heading").text(),
+            description: ele.find("p.list-group-item-text").text()
+          };
+
+          plan.push(step);
+        }
+        else if (ele.hasClass("liStay")) {
+          var step = {
+            stepType: "stay",
+            cityId: ele.attr("data-cityId"),
+            address: ele.attr("data-address")
+          };
+
+          plan.push(step);
+        }
+        else if (ele.hasClass("liWay")) {
+          var step = {
+            stepType: "way",
+            duration: ele.attr("data-duration")
+          };
+
+          plan.push(step);
+        }
+      });
+
+      $("#hdnDay" + dayIdx).val(JSON.stringify(plan));
+    }
+
+    function refreshMap(eleId) {
+      var ele = $("#" + eleId);
+      var latlngbounds = ele.data("latlngbounds");
+      var map = ele.data("map");
+      var center = map.getCenter();
+      google.maps.event.trigger(map, "resize");
+
+      if (latlngbounds) {
+        map.setCenter(latlngbounds.getCenter());
+        map.fitBounds(latlngbounds);
+      }
+      else
+        map.setCenter(center);
+
+      if (map.getZoom() > 12)
+        map.setZoom(12);
+      if (map.getZoom() < 6)
+        map.setZoom(6);
+    }
+
+    function recalcRoute(ele) {
+      var dayIdx = ele.attr("id").substring(6);
+      var sights = ele.data("sights");
+      var directionsService = ele.data("directionsService");
+      var directionsDisplay = ele.data("directionsDisplay");
+      var planEle = $("#plan" + dayIdx);
+
+      var waypts  = [];
+      var request = {
+        optimizeWaypoints: false,
+        travelMode: google.maps.TravelMode.DRIVING,
+        unitSystem: google.maps.UnitSystem.METRIC
+      };
+
+      var liLastStay = planEle.find("> li.liLastStay");
+      if (liLastStay.length)
+        request.origin = liLastStay.attr("data-address");
+
+      var liStay = planEle.find("> li.liStay");
+      if (liStay.length)
+        request.destination = liStay.attr("data-address");
+
+      for(var i = 0; i < sights.length; i++) {
+        var address = new google.maps.LatLng(sights[i].lat, sights[i].lng);
+        if (i == 0 && !liLastStay.length)
+          request.origin = address;
+        else if (i == sights.length - 1 && !liStay.length)
+          request.destination = address;
+        else
+          waypts.push({
+            location: address,
+            stopover: true
+          });
+      }
+
+      request.waypoints = waypts;
+
+      directionsService.route(request, function(response, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+          directionsDisplay.setDirections(response);
+          $("#plan" + dayIdx + " > li.liWay").remove();
+
+          var route = response.routes[0];
+          var latlngbounds = new google.maps.LatLngBounds();
+
+          // For each route, display summary information.
+          for (var i = 0; i < route.legs.length; i++) {
+            leg = route.legs[i];
+            var duration = Math.floor(leg.duration.value / 60);
+            var liWay = $("<li class='liWay list-group-item' data-duration='"+ leg.duration.value + "'><span class='glyphicon glyphicon-arrow-right'></span>{% trans "Driving" %}: " + duration + " {% trans "minutes" %}</li>");
+            planEle.find("> li.liSight, > li.liLastStay").eq(i).after(liWay);
+
+            for(var j = 0; j < leg.steps.length; j++) {
+              latlngbounds.extend(leg.steps[j].start_location);
+              latlngbounds.extend(leg.steps[j].end_location);
+            }
+          }
+
+          ele.data("latlngbounds", latlngbounds);
+          recordPlan(dayIdx);
+        }
+      });
+    }
+
+    function updateStay() {
+      var candidatesEle = $("#stayCandidates");
+      var dayIdx = candidatesEle.data("dayIdx");
+      var candidate = candidatesEle.data("candidate");
+      var stayItem = $("#stay" + dayIdx);
+      var addr = candidate.city + ", " + candidate.state;
+      var activeStay = candidatesEle.find("a.active");
+
+      stayItem.attr("data-cityId", candidate.id);
+      stayItem.attr("data-address", addr);
+
+      var stayHeading = stayItem.find(".list-group-item-heading");
+      var markerImg = stayHeading.find("> img.adp-marker");
+
+      stayHeading.html(markerImg[0].outerHTML + " Stay in " + addr);
+      stayItem.find(".list-group-item-text").html(activeStay.find(".list-group-item-text").html());
+
+      recalcRoute($("#detail" + dayIdx));
+
+      var departItem = $("#lastStay" + (dayIdx + 1));
+      if (departItem.length) {
+        departItem.attr("data-cityId", candidate.id);
+        departItem.attr("data-address", addr);
+
+        var departHeading = departItem.find(".list-group-item-heading");
+        var departMarker = departHeading.find("> img.adp-marker");
+
+        departHeading.html(departMarker[0].outerHTML + " Depart " + addr);
+
+        recalcRoute($("#detail" + (dayIdx + 1)));
+      }
+    }
+
+    function candidateClicked(eventObj) {
+      var candidatesEle = $("#stayCandidates");
+      candidatesEle.find("> .list-group-item").removeClass("active");
+      var clickedEle = $(eventObj.target).closest("a.list-group-item");
+      clickedEle.addClass("active");
+      candidatesEle.data("candidate", clickedEle.data("candidate"));
+
+      updateStay();
+      $("#selStayModal").modal('hide');
+    }
+
+    function selStay(dayIdx) {
+      var stay = stays[dayIdx - 1];
+
+      var selModalCandidates = $("#stayCandidates");
+      selModalCandidates.data("dayIdx", dayIdx);
+      selModalCandidates.html("");
+
+      for (var i = 0; i < stay.candidates.length; i++) {
+        var currentStayItem = $("#stay" + dayIdx);
+
+        var candidate = stay.candidates[i];
+        var listItem = $("<a href='#' class='list-group-item'></a>");
+        listItem.data("candidate", candidate);
+        listItem.click(candidateClicked);
+
+        if ("" + candidate.id == currentStayItem.attr("data-cityId"))
+          listItem.addClass("active");
+
+        listItem.append("<h4 class='list-group-item-heading'>" + candidate.city + ", " + candidate.state + "</h4>");
+
+        var locationStr = "";
+        for (var j = 0; j < candidate.location.length; j++) {
+          if (j > 0) locationStr += ", ";
+          locationStr += "{% trans "To" %} " + candidate.location[j].sightTitle + ": " + candidate.location[j].distance + " {% trans "kilometers" %}";
+        }
+        listItem.append("<p class='list-group-item-text'>" + locationStr + "</p>");
+
+        selModalCandidates.append(listItem);
+      }
+
+      $("#selStayModal").modal();
+    }
+
+    function initialize() {
+      $(".plan-pane").each(function(index, ele){
+        ele = $(ele);
+        var dayIdx = ele.attr("id").substring(6);
+        var sights = [];
+
+        $("#plan" + dayIdx + " > li.liSight").each(function(index, liEle) {
+          liEle = $(liEle);
+          var sightKey = liEle.attr("data-key");
+          var sightType = liEle.attr("data-type");
+          var sightLng = liEle.attr("data-lng");
+          var sightLat = liEle.attr("data-lat");
+
+          sights.push({
+            key: sightKey,
+            type: sightType,
+            lng: sightLng,
+            lat: sightLat
+          })
+        });
+
+        var myLatlng = new google.maps.LatLng(sights[0].lat, sights[0].lng);
+        var mapOptions = {
+          zoom: 4,
+          center: myLatlng
+        };
+
+        var map = new google.maps.Map(document.getElementById("map" + dayIdx), mapOptions);
+        var latlngbounds = new google.maps.LatLngBounds();
+
+        for(var i = 0; i < sights.length; i++) {
+          var sightCoord = new google.maps.LatLng(sights[i].lat, sights[i].lng);
+          latlngbounds.extend(sightCoord);
+        }
+
+        map.setCenter(latlngbounds.getCenter());
+        map.fitBounds(latlngbounds);
+
+        var directionsService = new google.maps.DirectionsService();
+        var directionsDisplay = new google.maps.DirectionsRenderer();
+
+        directionsDisplay.setMap(map);
+        ele.data("map", map);
+        ele.data("sights", sights);
+        ele.data("directionsService", directionsService);
+        ele.data("directionsDisplay", directionsDisplay);
+
+        recordPlan(dayIdx);
+        recalcRoute(ele);
+      }); //$(".plan-pane").each
+
+      $("ul.list-group").each(function(index, ele) {
+        $(ele).find("img.adp-marker").each(function(idx, imgEle) {
+          $(imgEle).attr("src", markerUrl(idx));
+        });
+      });
+
+      $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        var tabId = $(e.target).attr("href").substring(1);
+        refreshMap(tabId);
+      });
+    }
+
+    google.maps.event.addDomListener(window, 'load', initialize);
+
+  </script>
 {% endblock %}

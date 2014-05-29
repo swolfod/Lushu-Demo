@@ -11,6 +11,7 @@
   <div id="travelerInfo" class="row">
     <div class="col-xs-8 col-xs-offset-2 col-lg-4 col-lg-offset-4">
       <form role="form" id="mainForm" action="{% url "Lushu.views.selSights" %}" method="get">
+        {% csrf_token %}
         <div class="form-group">
             <input type="text" id="txtDepart" name="depart" class="form-control" autocomplete="off" placeholder={% trans "Depart City" %} />
         </div>

@@ -19,5 +19,20 @@ class TravelCity(models.Model):
     longitude = models.FloatField()
     latitude = models.FloatField()
 
+    nearCities = models.ManyToManyField(City, through="TravelNearCity", related_name="nearTravelCities")
+
     class Meta:
         db_table = "travel_city"
+
+    @property
+    def title(self):
+        return self.name
+
+
+class TravelNearCity(models.Model):
+    travelCity = models.ForeignKey(TravelCity, related_name="nearCityInfo")
+    city = models.ForeignKey(City)
+    distance = models.FloatField()
+
+    class Meta:
+        db_table = "travelcity_nearbycity"

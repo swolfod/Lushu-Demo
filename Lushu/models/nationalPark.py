@@ -2,6 +2,7 @@ __author__ = 'Swolfod'
 # -*- coding: utf-8 -*-
 
 from django.db import models
+from .city import City
 from .state import State
 from .hotel import Hotel
 from .restaurant import Restaurant
@@ -23,9 +24,14 @@ class NationalPark(models.Model):
 
     nearbyHotels = models.ManyToManyField(Hotel, db_table='park_hotel', related_name="nearbyNationalParks")
     nearbyRestaurants = models.ManyToManyField(Restaurant, db_table='park_restaurant', related_name="nearbyNationalParks")
+    nearCities = models.ManyToManyField(City, through="ParkNearCity", related_name="nearParks")
 
     class Meta:
         db_table = "national_park"
+
+    @property
+    def title(self):
+        return self.name_en
 
 
 class ParkPhoto(models.Model):
@@ -38,3 +44,12 @@ class ParkPhoto(models.Model):
 
     class Meta:
         db_table = "park_photo"
+
+
+class ParkNearCity(models.Model):
+    park = models.ForeignKey(NationalPark, related_name="nearCityInfo")
+    city = models.ForeignKey(City)
+    distance = models.FloatField()
+
+    class Meta:
+        db_table = "park_nearbycity"

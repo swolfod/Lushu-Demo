@@ -23,5 +23,20 @@ class MajorCity(models.Model):
     longitude = models.FloatField()
     latitude = models.FloatField()
 
+    nearCities = models.ManyToManyField(City, through="MajorNearCity", related_name="nearMajorCities")
+
+    @property
+    def title(self):
+        return self.name_en
+
     class Meta:
         db_table = "major_city"
+
+
+class MajorNearCity(models.Model):
+    majorCity = models.ForeignKey(MajorCity, related_name="nearCityInfo")
+    city = models.ForeignKey(City)
+    distance = models.FloatField()
+
+    class Meta:
+        db_table = "majorcity_nearbycity"

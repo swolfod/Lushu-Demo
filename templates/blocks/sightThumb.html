@@ -20,17 +20,17 @@
         <div class="row">
           <span data-toggle="buttons">
             {% if sight.toVisit %}
-                <label class="btn btn-primary col-lg-3 col-lg-offset-2 col-xs-5 active" >
+                <label class="btn btn-primary col-xs-5 active" >
                   <input type="checkbox" name="{{ sight.id }}" checked="checked" class="btn btn-primary" /> {% trans "Visit" %}
                 </label>
             {% else %}
-                <label class="btn btn-primary col-lg-3 col-lg-offset-2 col-xs-5" >
+                <label class="btn btn-primary col-xs-5" >
                   <input type="checkbox" name="{{ sight.id }}" class="btn btn-primary" /> {% trans "Visit" %}
                 </label>
             {% endif %}
           </span>
 
-          <a href="#" class="btn btn-default col-lg-3 col-lg-offset-2 col-xs-5  col-xs-offset-2" role="button">{% trans "Sight Details" %}</a>
+          <a href="#" class="btn btn-default col-xs-5  col-xs-offset-2" role="button">{% trans "Sight Details" %}</a>
         </div>
       </div>
     </div>

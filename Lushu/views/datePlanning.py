@@ -8,18 +8,6 @@ from Lushu.utils import *
 from random import randint
 
 
-def closestSight(lng, lat, sights):
-    minDist = 9999999
-    closest = None
-    for sightKey, sight in sights.items():
-        dist = calcDistance(lng, lat, sight["lng"], sight["lat"])
-        if dist < minDist:
-            minDist = dist
-            closest = sight
-
-    return closest, minDist
-
-
 def datePlanning(request):
     sightJson = request.session.get("sights", None)
     if not sightJson:
@@ -29,6 +17,7 @@ def datePlanning(request):
     visitSights = json.loads(sightJson)
     noSightsError = False
     invalidDuration = False
+    planDic = {}
 
     if request.method == "POST":
         sightsOrder = request.POST.get("order", None)
@@ -120,7 +109,7 @@ def datePlanning(request):
         sightsOrder = startSight["key"]
 
         while len(sights) > 0:
-            nextSight, dist = closestSight(startSight["lng"], startSight["lat"], sights)
+            nextSight, dist = closestSight(startSight["lng"], startSight["lat"], [sights[key] for key in sights])
             sightPlan.append(nextSight)
             sights.pop(nextSight["key"], None)
             sightsOrder += ", " + nextSight["key"]

@@ -12,3 +12,4 @@ from .nationalPark import NationalPark, ParkPhoto
 from .brandStore import BrandStore
 from .outlet import Outlet
 from .travelCity import TravelCity
+from .cityBizInfo import CityBizInfo

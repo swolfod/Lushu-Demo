@@ -18,4 +18,5 @@ urlpatterns += patterns('Lushu.views',
     (r"^selSights/$", "selSights"),
     (r"^datePlanning/$", "datePlanning"),
     (r"^detailPlanning/$", "detailPlanning"),
+    (r"^getPlan/$", "getPlan"),
 )

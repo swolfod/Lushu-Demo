@@ -10,3 +10,15 @@ def showHome():
     majorCities.sort(key = attrgetter('name_en'))
 
     return secureRender(request, "home.html", {"majorCities": majorCities, "invalid": {"destination": True}})
+
+
+def closestSight(lng, lat, sights):
+    minDist = 9999999
+    closest = None
+    for sight in sights:
+        dist = calcDistance(lng, lat, sight["lng"], sight["lat"])
+        if dist < minDist:
+            minDist = dist
+            closest = sight
+
+    return closest, minDist
