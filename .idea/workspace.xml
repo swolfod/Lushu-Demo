@@ -2,14 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/css/datePlan.css" afterPath="$PROJECT_DIR$/static/css/datePlan.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/datePlan.html" afterPath="$PROJECT_DIR$/templates/datePlan.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Lushu.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1401350552780" ignored="false" />
+    <file path="/Dummy.txt" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1401350716165" ignored="false" />
     <file path="/settings.py" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1400946913169" ignored="false" />
-    <file path="/a.dummy" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1401347537374" ignored="false" />
+    <file path="/a.dummy" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1401350910395" ignored="false" />
     <file path="/landing.py" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1400536240895" ignored="false" />
     <file path="/selSights.py" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1400918008783" ignored="false" />
     <file path="/datePlanning.py" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1401089777757" ignored="false" />
@@ -56,8 +57,8 @@
     <file path="/selSights.css" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1401347920270" ignored="false" />
     <file path="/utils.py" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1400821217479" ignored="false" />
     <file path="/djangoUtils.py" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1400919264484" ignored="false" />
-    <file path="/datePlan.html" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1401349693266" ignored="false" />
-    <file path="/datePlan.css" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1400918582195" ignored="false" />
+    <file path="/datePlan.html" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1401350864491" ignored="false" />
+    <file path="/datePlan.css" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1401351001066" ignored="false" />
     <file path="/a.html" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1401339819524" ignored="false" />
     <file path="/detailPlan.html" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1401339721694" ignored="false" />
     <file path="I:/PycharmProjects/NationalScraper/wikiNationalScraper.py" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1401057936000" ignored="false" />
@@ -127,25 +128,34 @@
       <file leaf-file-name="base.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/base.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="37" column="54" selection-start="1605" selection-end="1605" vertical-scroll-proportion="-1.6785715">
+            <state line="37" column="54" selection-start="1605" selection-end="1605" vertical-scroll-proportion="-25.107143">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="datePlan.html" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="datePlan.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/datePlan.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="95" selection-start="504" selection-end="504" vertical-scroll-proportion="0.30810812">
+            <state line="51" column="21" selection-start="2386" selection-end="2392" vertical-scroll-proportion="-10.178572">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="datePlan.css" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="detailPlan.css" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/css/detailPlan.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="8" column="1" selection-start="78" selection-end="78" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="datePlan.css" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/static/css/datePlan.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="8" column="1" selection-start="87" selection-end="87" vertical-scroll-proportion="0.0">
+            <state line="8" column="1" selection-start="87" selection-end="87" vertical-scroll-proportion="0.2820037">
               <folding />
             </state>
           </provider>
@@ -154,7 +164,7 @@
       <file leaf-file-name="detailPlan.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/detailPlan.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="35" selection-start="414" selection-end="414" vertical-scroll-proportion="180.64285">
+            <state line="50" column="57" selection-start="2524" selection-end="2524" vertical-scroll-proportion="-12.071428">
               <folding />
             </state>
           </provider>
@@ -217,12 +227,12 @@
         <option value="$PROJECT_DIR$/templates/blocks/sightThumb.html" />
         <option value="$PROJECT_DIR$/templates/selSights.html" />
         <option value="$PROJECT_DIR$/static/css/selSights.css" />
-        <option value="$PROJECT_DIR$/static/css/datePlan.css" />
         <option value="$PROJECT_DIR$/templates/getPlan.html" />
         <option value="$PROJECT_DIR$/Lushu/views/getPlan.py" />
         <option value="$PROJECT_DIR$/templates/base.html" />
         <option value="$PROJECT_DIR$/static/js/base.js" />
         <option value="$PROJECT_DIR$/templates/datePlan.html" />
+        <option value="$PROJECT_DIR$/static/css/datePlan.css" />
       </list>
     </option>
   </component>
@@ -666,7 +676,11 @@
       <created>1401350554543</created>
       <updated>1401350554543</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="touch sortable testing 8&#10;">
+      <created>1401350717770</created>
+      <updated>1401350717770</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -676,14 +690,14 @@
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295964" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295964" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3295964" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32976446" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25642398" sideWeight="0.7040359" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25642398" sideWeight="0.6704036" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39910313" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29596412" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29596412" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -731,7 +745,7 @@
     <option name="MAXIMUM_HISTORY_ROWS" value="1000" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="touch sortable testing 7&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="touch sortable testing 8&#10;" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -755,6 +769,7 @@
     <MESSAGE value="touch sortable testing 5&#10;" />
     <MESSAGE value="touch sortable testing 6&#10;" />
     <MESSAGE value="touch sortable testing 7&#10;" />
+    <MESSAGE value="touch sortable testing 8&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -762,13 +777,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/static/css/bootstrap.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="4629" column="1" selection-start="93141" selection-end="93247" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/emailBody.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="24" column="3" selection-start="522" selection-end="522" vertical-scroll-proportion="-16.285715">
@@ -818,13 +826,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/detailPlan.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="35" selection-start="414" selection-end="414" vertical-scroll-proportion="180.64285">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/getPlan.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="18" column="32" selection-start="508" selection-end="508" vertical-scroll-proportion="-12.214286">
@@ -855,23 +856,37 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/static/css/datePlan.css">
+    <entry file="file://$PROJECT_DIR$/templates/base.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="8" column="1" selection-start="87" selection-end="87" vertical-scroll-proportion="0.0">
+        <state line="37" column="54" selection-start="1605" selection-end="1605" vertical-scroll-proportion="-25.107143">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/base.html">
+    <entry file="file://$PROJECT_DIR$/templates/detailPlan.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="54" selection-start="1605" selection-end="1605" vertical-scroll-proportion="-1.6785715">
+        <state line="50" column="57" selection-start="2524" selection-end="2524" vertical-scroll-proportion="-12.071428">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/css/detailPlan.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="1" selection-start="78" selection-end="78" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/datePlan.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="95" selection-start="504" selection-end="504" vertical-scroll-proportion="0.30810812">
+        <state line="51" column="21" selection-start="2386" selection-end="2392" vertical-scroll-proportion="-10.178572">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/css/datePlan.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="8" column="1" selection-start="87" selection-end="87" vertical-scroll-proportion="0.2820037">
           <folding />
         </state>
       </provider>

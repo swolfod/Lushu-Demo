@@ -7,3 +7,13 @@
     width: 50px;
     display: inline;
 }
+
+#routeList span.glyphicon
+{
+    margin-right: 5px;
+}
+
+#routeList button.close
+{
+    margin-left: 5px;
+}

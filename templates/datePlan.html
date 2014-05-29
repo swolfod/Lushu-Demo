@@ -6,7 +6,6 @@
 {% block head %}
   <link href="{% static 'css/datePlan.css' %}" rel="stylesheet" media="screen">
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVzkS9fJtCinveTrOC1YM7_4BJ4f86R1o&sensor=FALSE&language=en" type="text/javascript"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
   <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.2/jquery.ui.touch-punch.min.js"></script>
 {% endblock %}
@@ -49,6 +48,7 @@
         <ul id="routeList" class="list-group">
           {% for sight in sights %}
             <li data-key="{{ sight.key }}" class="list-group-item">
+              <span class='glyphicon glyphicon-move'></span>
               <button type="button" class="close" data-dismiss="alert" onclick="updateSight('{{ sight.key }}'); return true;" aria-hidden="true">&times;</button>
               <b>{{ sight.title }}</b> {% trans "for" %}
               <input type="text" class="form-control" name="duration-{{ sight.key }}" value="{{ sight.duration }}" /> {% trans "days" %}
