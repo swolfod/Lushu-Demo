@@ -7,7 +7,7 @@
     </list>
     <ignored path="Lushu.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1401349943059" ignored="false" />
+    <file path="/Dummy.txt" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1401350067368" ignored="false" />
     <file path="/settings.py" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1400946913169" ignored="false" />
     <file path="/a.dummy" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1401347537374" ignored="false" />
     <file path="/landing.py" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1400536240895" ignored="false" />
@@ -136,7 +136,7 @@
       <file leaf-file-name="datePlan.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/datePlan.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="28" column="0" selection-start="1269" selection-end="1269" vertical-scroll-proportion="0.93153155">
+            <state line="188" column="16" selection-start="6739" selection-end="6739" vertical-scroll-proportion="6.436036">
               <folding />
             </state>
           </provider>
@@ -646,7 +646,11 @@
       <created>1401349946127</created>
       <updated>1401349946127</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="touch sortable testing 4&#10;">
+      <created>1401350069584</created>
+      <updated>1401350069584</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -711,7 +715,7 @@
     <option name="MAXIMUM_HISTORY_ROWS" value="1000" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="touch sortable testing 3&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="touch sortable testing 4&#10;" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -731,6 +735,7 @@
     <MESSAGE value="touch sortable testing" />
     <MESSAGE value="touch sortable testing 2" />
     <MESSAGE value="touch sortable testing 3&#10;" />
+    <MESSAGE value="touch sortable testing 4&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -847,7 +852,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/datePlan.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="0" selection-start="1269" selection-end="1269" vertical-scroll-proportion="0.93153155">
+        <state line="188" column="16" selection-start="6739" selection-end="6739" vertical-scroll-proportion="6.436036">
           <folding />
         </state>
       </provider>
