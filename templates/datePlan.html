@@ -6,21 +6,11 @@
 {% block head %}
   <link href="{% static 'css/datePlan.css' %}" rel="stylesheet" media="screen">
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAVzkS9fJtCinveTrOC1YM7_4BJ4f86R1o&sensor=FALSE&language=en" type="text/javascript"></script>
-  <link href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.3/css/base/jquery.ui.all.css" rel="stylesheet">
-  <link href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.2/css/lightness/jquery-ui-1.10.2.custom.min.css" rel="stylesheet">
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
   <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.2/jquery.ui.touch-punch.min.js"></script>
 {% endblock %}
 
 {% block main %}
-
-  <style>
-    #sortable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
-    #sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 18px; }
-    #sortable li span { position: absolute; margin-left: -1.3em; }
-  </style>
-
   <div id="datePlan" class="container-fluid">
     {% if noSightsError %}
       <div class="alert alert-warning alert-dismissable">
@@ -181,9 +171,7 @@
   google.maps.event.addDomListener(window, 'load', initialize);
 
   $(function() {
-    $( "#sortable" ).sortable()
-    $("#sortable").disableSelection();
+    $( "#sortable" ).sortable().disableSelection();
   });
-
   </script>
 {% endblock %}
