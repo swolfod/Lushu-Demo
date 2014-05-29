@@ -40,7 +40,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button-->
-      <a class="navbar-brand" href="#">{% trans "Roadbook" %}</a>
+      <a class="navbar-brand" href="/">{% trans "Roadbook" %}</a>
     </div>
     <!--div class="navbar-collapse collapse">
       <form class="navbar-form navbar-right" role="form">
@@ -64,21 +64,23 @@
   {% block main %}{% endblock %}
 </div>
 
-<footer>
-  <div class="navbar navbar-inverse navbar-fixed-bottom container-fluid">
-    {% if lastPage %}
-      <a class="btn btn-default navbar-btn" href="{{ lastPage }}">{% trans "Back" %}</a>
-    {% endif %}
-
-    <button type="button" class="btn btn-primary navbar-btn pull-right" onclick="submitMainForm();">
-      {% if finalStep %}
-        {% trans "Submit" %}
-      {% else %}
-        {% trans "Next Step" %}
+{% if not hideFooter %}
+  <footer>
+    <div class="navbar navbar-inverse navbar-fixed-bottom container-fluid">
+      {% if lastPage %}
+        <a class="btn btn-default navbar-btn" href="{{ lastPage }}">{% trans "Back" %}</a>
       {% endif %}
-    </button>
-  </div>
-</footer>
+
+      <button type="button" class="btn btn-primary navbar-btn pull-right" onclick="submitMainForm();">
+        {% if finalStep %}
+          {% trans "Done" %}
+        {% else %}
+          {% trans "Next Step" %}
+        {% endif %}
+      </button>
+    </div>
+  </footer>
+{% endif %}
 
 <script type="text/javascript">
   function submitMainForm() {

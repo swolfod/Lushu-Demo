@@ -16,7 +16,7 @@
     </div>
   {% endif %}
 
-  <form role="form" method="post">
+  <form role="form" id="mainForm" method="post">
     {% csrf_token %}
     <div class="form-group {% if invliadEmail %}has-error{% endif %}">
       <label for="inputEmail">{% trans "Please provide the email address you want the plan sent to" %}</label>

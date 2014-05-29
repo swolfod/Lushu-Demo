@@ -55,11 +55,12 @@ def getPlan(request):
             invliadEmail = True
         else:
             sendGmail("lushu.co@gmail.com", "roadbook", email, planDetails)
-            return secureRender(request, "emailSent.html", {})
+            return secureRender(request, "emailSent.html", {"hideFooter": True})
 
 
     return secureRender(request, "getPlan.html", {
         "dayPlans": planDetails,
         "lastPage": reverse("Lushu.views.detailPlanning"),
-        "invliadEmail": invliadEmail
+        "invliadEmail": invliadEmail,
+        "finalStep": True
     })
