@@ -680,7 +680,14 @@
 
     directionsDisplay.setMap(map);
 
-    updateRoute(defaultOneAirportRoute);
+    var sightsOrder = $("#hdnOrder").val();
+    if (sightsOrder)
+      updateRoute({
+        route: sightsOrder.split(", "),
+        distance: 0
+      });
+    else
+      updateRoute(defaultTwoAirportsRoute);
 
     var routeList = $("#routeList");
     routeList.sortable({

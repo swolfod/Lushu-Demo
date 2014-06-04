@@ -44,6 +44,7 @@ def datePlanning(request):
         else:
             noSightsError = True
 
+    sightsOrder = request.session.get("sightsOrder", None)
     durationsJson = request.session.get("durations", None)
     durations = json.loads(durationsJson) if durationsJson else {}
 
@@ -129,5 +130,6 @@ def datePlanning(request):
         "noSightsError": noSightsError,
         "invalidDuration": invalidDuration,
         "tripDuration": tripDuration,
+        "sightsOrder": sightsOrder,
         "lastPage": reverse("Lushu.views.selSights")
     })
