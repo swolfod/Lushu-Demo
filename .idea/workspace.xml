@@ -2,18 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/datePlan.html" afterPath="$PROJECT_DIR$/templates/datePlan.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lushu/views/datePlanning.py" afterPath="$PROJECT_DIR$/Lushu/views/datePlanning.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Lushu.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1401855935122" ignored="false" />
+    <file path="/Dummy.txt" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1401856715624" ignored="false" />
     <file path="/settings.py" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1400946913169" ignored="false" />
     <file path="/a.dummy" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1401853920225" ignored="false" />
     <file path="/landing.py" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1400536240895" ignored="false" />
     <file path="/selSights.py" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1401853915712" ignored="false" />
-    <file path="/datePlanning.py" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1401856197060" ignored="false" />
+    <file path="/datePlanning.py" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1401857241655" ignored="false" />
     <file path="/detailPlanning.py" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1401848312991" ignored="false" />
     <file path="/__init__.py" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1401257113438" ignored="false" />
     <file path="/urls.py" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1401254809534" ignored="false" />
@@ -111,7 +110,7 @@
       <file leaf-file-name="datePlanning.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Lushu/views/datePlanning.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="46" column="50" selection-start="1760" selection-end="1760" vertical-scroll-proportion="0.0">
+            <state line="123" column="27" selection-start="4979" selection-end="4979" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -126,10 +125,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="detailPlanning.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="detailPlanning.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Lushu/views/detailPlanning.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="215" column="24" selection-start="7281" selection-end="7281" vertical-scroll-proportion="1.2666667">
+            <state line="204" column="69" selection-start="7035" selection-end="7035" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -147,16 +146,16 @@
       <file leaf-file-name="selSights.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/selSights.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="176" column="0" selection-start="6014" selection-end="6014" vertical-scroll-proportion="-10.25862">
+            <state line="47" column="28" selection-start="1712" selection-end="1727" vertical-scroll-proportion="0.5344828">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="datePlan.html" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="datePlan.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/datePlan.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="686" column="19" selection-start="25743" selection-end="25743" vertical-scroll-proportion="-16.428572">
+            <state line="682" column="26" selection-start="25625" selection-end="25625" vertical-scroll-proportion="0.37757438">
               <folding />
             </state>
           </provider>
@@ -230,8 +229,8 @@
         <option value="$PROJECT_DIR$/Lushu/views/selSights.py" />
         <option value="$PROJECT_DIR$/Lushu/settings.py" />
         <option value="$PROJECT_DIR$/utilities/djangoUtils.py" />
-        <option value="$PROJECT_DIR$/Lushu/views/datePlanning.py" />
         <option value="$PROJECT_DIR$/templates/datePlan.html" />
+        <option value="$PROJECT_DIR$/Lushu/views/datePlanning.py" />
       </list>
     </option>
   </component>
@@ -693,7 +692,11 @@
       <created>1401855937501</created>
       <updated>1401855937501</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="Client caching removing">
+      <created>1401856717773</created>
+      <updated>1401856717773</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -707,7 +710,7 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32976446" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26927194" sideWeight="0.60201794" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.39798206" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.39798206" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29596412" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -872,30 +875,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Lushu/views/datePlanning.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="46" column="50" selection-start="1760" selection-end="1760" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Lushu/views/selSights.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="42" column="49" selection-start="1495" selection-end="1495" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/selSights.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="176" column="0" selection-start="6014" selection-end="6014" vertical-scroll-proportion="-10.25862">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/datePlan.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="686" column="19" selection-start="25743" selection-end="25743" vertical-scroll-proportion="-16.428572">
           <folding />
         </state>
       </provider>
@@ -909,7 +891,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Lushu/views/detailPlanning.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="215" column="24" selection-start="7281" selection-end="7281" vertical-scroll-proportion="1.2666667">
+        <state line="204" column="69" selection-start="7035" selection-end="7035" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/selSights.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="47" column="28" selection-start="1712" selection-end="1727" vertical-scroll-proportion="0.5344828">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Lushu/views/datePlanning.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="123" column="27" selection-start="4979" selection-end="4979" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/datePlan.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="682" column="26" selection-start="25625" selection-end="25625" vertical-scroll-proportion="0.37757438">
           <folding />
         </state>
       </provider>

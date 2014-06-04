@@ -130,6 +130,6 @@ def datePlanning(request):
         "noSightsError": noSightsError,
         "invalidDuration": invalidDuration,
         "tripDuration": tripDuration,
-        "sightsOrder": sightsOrder,
+        "sightsOrder": sightsOrder if sightsOrder else "",
         "lastPage": reverse("Lushu.views.selSights")
     })
