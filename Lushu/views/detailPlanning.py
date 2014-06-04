@@ -101,7 +101,7 @@ def detailPlanning(request):
     sightsDistances = request.session.get("sightsDistances", None)
     durations = request.session.get("durations", None)
 
-    if not sightsOrder or not sightsDistances or not durations:
+    if not sightsOrder or not durations:
         return HttpResponseRedirect(reverse("Lushu.views.datePlanning"))
 
     if request.method == "POST":

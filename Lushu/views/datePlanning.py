@@ -16,7 +16,7 @@ def datePlanning(request):
     sightJson = request.session.get("sights", None)
     if not sightJson:
         request.session["noSightsError"] = True
-        return HttpResponseRedirect(reverse("Lushu.views.detailPlanning"))
+        return HttpResponseRedirect(reverse("Lushu.views.selSights"))
 
     visitSights = json.loads(sightJson)
     noSightsError = False
