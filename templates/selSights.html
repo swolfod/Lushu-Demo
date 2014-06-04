@@ -25,21 +25,19 @@
         <li class="col-xs-4"><a href="#outlets" data-toggle="tab">{% trans "Outlets" %}</a></li>
       </ul>
 
-      <div class="tab-pane active" id="cities">
-        <div class="row">
-            {% for sightCity in citySights %}
-                {% include "blocks/sightThumb.html" with sight=sightCity %}
-            {% endfor %}
-        </div>
+      <div class="tab-pane row active" id="cities">
+        {% for sightCity in citySights %}
+          {% include "blocks/sightThumb.html" with sight=sightCity visiting=visiting %}
+        {% endfor %}
       </div>
-      <div class="tab-pane" id="nationalParks">
+      <div class="tab-pane row" id="nationalParks">
           {% for sightPark in parkSights %}
-              {% include "blocks/sightThumb.html" with sight=sightPark %}
+              {% include "blocks/sightThumb.html" with sight=sightPark visiting=visiting %}
           {% endfor %}
       </div>
-      <div class="tab-pane" id="outlets">
+      <div class="tab-pane row" id="outlets">
           {% for outlet in outletSights %}
-              {% include "blocks/sightThumb.html" with sight=outlet %}
+              {% include "blocks/sightThumb.html" with sight=outlet visiting=visiting %}
           {% endfor %}
       </div>
       <div class="clearfix"></div>
@@ -47,14 +45,151 @@
   </form>
 
   <script type="text/javascript">
+    function updateSightDist(thumb, sightId, sightTitle, distance) {
+      thumb.attr("data-dist", distance);
+      thumb.attr("data-closest", sightId);
+
+      var locEle = $("#loc" + thumb.attr("data-sightId"));
+      locEle.removeClass();
+
+      var apprDist = Math.floor(distance * 1.3);
+
+      if (apprDist > 400)
+        locEle.text("{% trans "Far far away" %}").addClass("label label-default");
+      else if (apprDist > 250)
+        locEle.text("200+ km {% trans "From" %} " + sightTitle).addClass("label label-danger");
+      else if (apprDist > 150)
+        locEle.text("100+ km {% trans "From" %} " + sightTitle).addClass("label label-warning");
+      else
+        locEle.text("{% trans "Near" %} " + sightTitle).addClass("label label-success");
+    }
+
+    function clearCloseSight(thumb) {
+      thumb.removeAttr("data-dist");
+      thumb.removeAttr("data-closest");
+
+      var locEle = $("#loc" + thumb.attr("data-sightId"));
+      locEle.text("").removeClass();
+    }
+
+    function orderOutlets() {
+      if (!$("#cities div.thumbnail.active, #nationalParks div.thumbnail.active").length)
+        return;
+
+      var outlets = [];
+      var outletPane = $("#outlets");
+      outletPane.find("div.thumbnail").each(function(index, ele) {
+        ele = $(ele);
+        var distance = parseFloat(ele.attr("data-dist"));
+        if (!distance)
+          distance = 0;
+
+        outlets.push({
+          thumb: ele,
+          distance: distance
+        })
+      });
+
+      outlets.sort(function(o1, o2) {
+        return o1.distance - o2.distance;
+      });
+
+      for (var i = 0; i < outlets.length; i++)
+        outletPane.append(outlets[i].thumb.parent());
+    }
+
+    function addSight(sightId) {
+      var thumbEle = $("div.thumbnail[data-sightId='" + sightId + "']");
+      //var pane = thumbEle.closest("div.tab-pane");
+      //var inactiveThumb = pane.find("div.thumbnail:not(.active)");
+      //if (inactiveThumb.length)
+      //  $(inactiveThumb[0]).parent().before(thumbEle);
+
+      clearCloseSight(thumbEle);
+      if (sightId.substring(0, 2) == "ol") return;
+
+      var sightLat = parseFloat(thumbEle.attr("data-lat"));
+      var sightLng = parseFloat(thumbEle.attr("data-lng"));
+      var sightTitle = thumbEle.find("h3").text();
+
+      $("#sights").find("> div.tab-pane").each(function(index, pane) {
+        pane = $(pane);
+        pane.find("div.thumbnail:not(.active)").each(function(idx, thumb) {
+          thumb = $(thumb);
+          var lat = parseFloat(thumb.attr("data-lat"));
+          var lng = parseFloat(thumb.attr("data-lng"));
+
+          var currDistance = parseFloat(thumb.attr("data-dist"));
+          if (!currDistance)
+            currDistance = 99999;
+
+          var distance = calcCrow(sightLat, sightLng, lat, lng);
+          if (distance < currDistance)
+            updateSightDist(thumb, sightId, sightTitle, distance);
+        });
+      });
+
+      orderOutlets();
+    }
+
+    function removeSight(sightId) {
+      var distSights = $("div.thumbnail[data-closest='" + sightId + "'], div.thumbnail[data-sightId='" + sightId + "']");
+
+      var activeSights = [];
+      $("#cities div.thumbnail.active, #nationalParks div.thumbnail.active").each(function(index, ele) {
+        ele = $(ele);
+        var sightId = ele.attr("data-sightId");
+        var lat = parseFloat(ele.attr("data-lat"));
+        var lng = parseFloat(ele.attr("data-lng"));
+        var title = ele.find("h3").text();
+        activeSights.push({
+          sightId: sightId,
+          lat: lat,
+          lng: lng,
+          title: title
+        });
+      });
+
+      for (var i = 0; i < distSights.length; i++){
+        var thumb = $(distSights[i]);
+        clearCloseSight(thumb);
+
+        var lat = parseFloat(thumb.attr("data-lat"));
+        var lng = parseFloat(thumb.attr("data-lng"));
+
+        var currDist = 99999, currSight = null;
+        for (var j = 0; j < activeSights.length; j++) {
+          var sight = activeSights[j];
+          var distance = calcCrow(lat, lng, sight.lat, sight.lng);
+          if (distance < currDist) {
+            currDist = distance;
+            currSight = sight;
+          }
+        }
+
+        if (currSight)
+          updateSightDist(thumb, currSight.sightId, currSight.title, currDist);
+      }
+
+      if (sightId.substring(0, 2) != "ol")
+        orderOutlets();
+    }
+
     function initialize() {
       $(".sightChk").change(function() {
         var ele = $(this);
         var thumbEle = ele.closest("div.thumbnail");
+        var sightId = ele.attr("name");
         if (ele.is(":checked"))
+        {
           thumbEle.addClass("active");
+          addSight(sightId);
+        }
         else
+        {
           thumbEle.removeClass("active");
+          removeSight(sightId);
+        }
       });
     }
 

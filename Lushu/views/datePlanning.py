@@ -9,6 +9,10 @@ from random import randint
 
 
 def datePlanning(request):
+    destArea = request.session.get("destArea", None)
+    if not destArea:
+        return secureRender(request, "home.html", {"areas": Areas, "invalid": {"destination": True}})
+
     sightJson = request.session.get("sights", None)
     if not sightJson:
         request.session["noSightsError"] = True
@@ -17,7 +21,6 @@ def datePlanning(request):
     visitSights = json.loads(sightJson)
     noSightsError = False
     invalidDuration = False
-    planDic = {}
 
     if request.method == "POST":
         sightsOrder = request.POST.get("order", None)
@@ -26,9 +29,9 @@ def datePlanning(request):
         if sightsOrder:
             visitSights = [key.strip() for key in sightsOrder.split(",")]
 
-            durations = {sightId: request.POST.get("duration-" + sightId) for sightId in visitSights}
+            durations = {sightId: request.POST.get("duration-" + sightId) if sightId[:2] != "ap" else 0 for sightId in visitSights}
             for key, value in durations.items():
-                if not value or not isNumber(value):
+                if not isNumber(value):
                     invalidDuration = True
                     break
             else:
@@ -40,22 +43,11 @@ def datePlanning(request):
                 return HttpResponseRedirect(reverse("Lushu.views.detailPlanning"))
         else:
             noSightsError = True
-            planDic = json.loads(sightJson)
-
-    destCityId = request.session.get("destCity", None)
-    if not destCityId:
-       return showHome()
 
     durationsJson = request.session.get("durations", None)
     durations = json.loads(durationsJson) if durationsJson else {}
 
-    sightsOrder = request.session.get("sightsOrder", "")
-    sightsDistances = request.session.get("sightsDistances", "")
-
-    destCity = MajorCity.objects.get(pk=destCityId)
-    sights = {}
-
-    startSight = None
+    sights = []
 
     for key in visitSights:
         sightInfo = {}
@@ -64,9 +56,6 @@ def datePlanning(request):
             sightInfo["type"] = "city"
             sightInfo["title"] = sight.name
             sightInfo["duration"] = durations.get(key, randint(2, 4) / 2)
-
-            if sight.city_id == destCity.city_id:
-                startSight = sightInfo
         elif key.startswith('pk'):
             sight = NationalPark.objects.get(pk=key[2:])
             sightInfo["type"] = "nationalPark"
@@ -84,43 +73,61 @@ def datePlanning(request):
         sightInfo["lng"] = sight.longitude
         sightInfo["lat"] = sight.latitude
 
-        if sightInfo != startSight:
-            sights[key] = sightInfo
+        sights.append(sightInfo)
 
-    if not startSight:
-        destKey = "mc" + str(destCityId)
-        startSight = {
-            "key": destKey,
-            "title": destCity.name_en,
-            "lng": destCity.longitude,
-            "lat": destCity.latitude,
-            "duration": randint(2, 4) / 2 if destKey in planDic else 0,
-            "type": "city"
+    allAirports = Airport.objects.filter(international=True, longitude__gte=destArea["lngW"], longitude__lte=destArea["lngE"], latitude__gte=destArea["latS"], latitude__lte=destArea["latN"]).all()
+    airportSights = {}
+    for sight in sights:
+        airportDist = []
+        for airport in allAirports:
+            distance = calcDistance(sight["lng"], sight["lat"], airport.longitude, airport.latitude)
+            airportDist.append((airport.id, distance))
+
+        airportDist.sort(key = lambda ele: ele[1])
+        closestAirportId, closestDist = airportDist[0]
+        sight["airports"] = [{"airportId": closestAirportId, "distance": closestDist}]
+        if closestAirportId not in airportSights:
+            airportSights[closestAirportId] = []
+        airportSights[closestAirportId].append({"sightKey": sight["key"], "sightTitle": sight["title"], "distance": int(closestDist)})
+        for i in range(1, len(airportDist)):
+            airportId, distance = airportDist[i]
+            if distance > closestDist + 100:
+                break
+
+            sight["airports"].append({"airportId": airportId, "distance": distance})
+            if airportId not in airportSights:
+                airportSights[airportId] = []
+            airportSights[airportId].append({"sightKey": sight["key"], "sightTitle": sight["title"], "distance": int(distance)})
+
+    airportDic = {airport.id: airport for airport in allAirports}
+    airports = []
+    for airportId, closeSights in airportSights.items():
+        closeSights.sort(key = lambda ele: ele["distance"])
+        airport = airportDic[airportId]
+
+        airportInfo = {
+            "id": airportId,
+            "title": airport.title,
+            "lat": airport.latitude,
+            "lng": airport.longitude,
+            "sights": [closeSights[0]]
         }
 
-    if sightsOrder:
-        try:
-            sights[startSight["key"]] = startSight
-            sightPlan = [sights[key.strip()] for key in sightsOrder.split(",")]
-        except:
-            return showHome()
-    else:
-        sightPlan = [startSight]
-        sightsOrder = startSight["key"]
+        for i in range(1, len(closeSights)):
+            if closeSights[i]["distance"] > closeSights[0]["distance"] + 50 or i > 2:
+                break
+            airportInfo["sights"].append(closeSights[i])
 
-        while len(sights) > 0:
-            nextSight, dist = closestSight(startSight["lng"], startSight["lat"], [sights[key] for key in sights])
-            sightPlan.append(nextSight)
-            sights.pop(nextSight["key"], None)
-            sightsOrder += ", " + nextSight["key"]
-            startSight = nextSight
+        airports.append(airportInfo)
 
+    tripDuration = request.session.get("tripDuration", 0)
     return secureRender(request, "datePlan.html", {
-        "sights": sightPlan,
-        "sightsJson": json.dumps(sightPlan, cls=DjangoJSONEncoder),
+        "sights": sights,
+        "sightsJson": json.dumps(sights, cls=DjangoJSONEncoder),
+        "airports": airports,
+        "airportsJson": json.dumps(airports, cls=DjangoJSONEncoder),
         "noSightsError": noSightsError,
         "invalidDuration": invalidDuration,
-        "sightsOrder": sightsOrder,
-        "sightsDistances": sightsDistances,
+        "tripDuration": tripDuration,
         "lastPage": reverse("Lushu.views.selSights")
     })

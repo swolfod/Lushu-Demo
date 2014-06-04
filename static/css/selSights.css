@@ -11,3 +11,14 @@
     border-color: #9ecaed;
     box-shadow: 0 0 10px #9ecaed;
 }
+
+.thumbnail .caption p
+{
+    min-height: 20px;
+    margin-bottom: 0;
+}
+
+.thumbBtn
+{
+    padding-top: 5px;
+}

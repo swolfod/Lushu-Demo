@@ -103,11 +103,6 @@
   <script type="text/javascript">
     var stays = {{ staysJson|safe }};
 
-    function markerUrl(idx) {
-      var markerTxt = String.fromCharCode("A".charCodeAt(0) + idx);
-      return "https://mts.googleapis.com/vt/icon/name=icons/spotlight/spotlight-waypoint-a.png&text=" + markerTxt + "&psize=16&font=fonts/Roboto-Regular.ttf&color=ff333333&ax=44&ay=48&scale=1";
-    }
-
     function recordPlan(dayIdx) {
       var planList = $("#plan" + dayIdx);
       var planItems = planList.find("> li.list-group-item");
@@ -169,8 +164,10 @@
         map.setCenter(latlngbounds.getCenter());
         map.fitBounds(latlngbounds);
       }
-      else
+      else {
         map.setCenter(center);
+        recalcRoute(ele);
+      }
 
       if (map.getZoom() > 12)
         map.setZoom(12);
@@ -368,12 +365,13 @@
         ele.data("directionsDisplay", directionsDisplay);
 
         recordPlan(dayIdx);
-        recalcRoute(ele);
+        if (ele.hasClass("active"))
+          recalcRoute(ele);
       }); //$(".plan-pane").each
 
       $("ul.list-group").each(function(index, ele) {
         $(ele).find("img.adp-marker").each(function(idx, imgEle) {
-          $(imgEle).attr("src", markerUrl(idx));
+          $(imgEle).attr("src", mapMarkerUrl(idx));
         });
       });
 

@@ -123,17 +123,11 @@ def detailPlanning(request):
         return HttpResponseRedirect(reverse("Lushu.views.getPlan"))
 
     durations = {k: float(v) for k,v in json.loads(durations).items()}
-    visitSights = [key.strip() for key in sightsOrder.split(",") if key.strip() in durations and durations[key.strip()] > 0]
-
-    startAirport = closestAirport(getSight(visitSights[0]))
-    airportKey = "ap" + str(startAirport.id)
-    visitSights.insert(0, airportKey)
-    durations[airportKey] = 0
-
-    leaveAirport = closestAirport(getSight(visitSights[-1]))
-    airportKey = "ap" + str(leaveAirport.id)
-    visitSights.append(airportKey)
-    durations[airportKey] = 0
+    visitSights = []
+    for key in sightsOrder.split(","):
+        key = key.strip()
+        if key in durations and (durations[key] > 0 or key[:2] == "ap"):
+            visitSights.append(key)
 
     plan = []
     nextDay = []

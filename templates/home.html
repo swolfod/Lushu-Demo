@@ -12,30 +12,37 @@
     <div class="col-xs-8 col-xs-offset-2 col-lg-4 col-lg-offset-4">
       <form role="form" id="mainForm" action="{% url "Lushu.views.selSights" %}" method="get">
         {% csrf_token %}
-        <div class="form-group">
-            <input type="text" id="txtDepart" name="depart" class="form-control" autocomplete="off" placeholder={% trans "Depart City" %} />
-        </div>
-        {% if invalid.destination %}
-            <div class="form-group has-error">
-        {% else %}
-          <div class="form-group">
-        {% endif %}
-          <select id="selDestination" name="destination" class="form-control">
-            <option selected disabled>{% trans "Destination" %}</option>
-              {% for city in majorCities %}
-                <option value="{{ city.id }}">{{ city.name_en }} - {{ city.name_cn }}</option>
+          <fieldset>
+            {% if invalid.destination %}
+              <div class="form-group has-error">
+            {% else %}
+              <div class="form-group">
+            {% endif %}
+            <legend>{% trans "Where are you planning to visit?" %}</legend>
+            <select id="selDestination" name="destination" class="form-control input-lg">
+              <option selected disabled>{% trans "Destination" %}</option>
+              {% for area in areas %}
+                <option value="{{ forloop.counter0 }}">{{ area.name }}</option>
               {% endfor %}
-          </select>
-        </div>
-        <div class="form-group">
-            <input type="text" id="txtDepartDate" name="departDate" class="form-control" autocomplete="off" placeholder={% trans "Depart Date" %} />
-        </div>
-        <div class="form-group">
-            <input type="text" id="txtDuration" name="duration" class="form-control" autocomplete="off" placeholder={% trans "Trip Duration" %} />
-        </div>
-        <div class="form-group">
-          <button type="submit" class="btn btn-primary pull-right">{% trans "Start Planning" %}</button>
-        </div>
+            </select>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>{% trans "Tell us more about your trip" %}</legend>
+          <div class="form-group">
+              <input type="text" id="txtDepart" name="depart" class="form-control" autocomplete="off" placeholder="{% trans "Depart City" %}" />
+          </div>
+          <div class="form-group">
+              <input type="text" id="txtDepartDate" name="departDate" class="form-control" autocomplete="off" placeholder="{% trans "Depart Date" %}" />
+          </div>
+          <div class="form-group">
+              <input type="text" id="txtDuration" name="duration" class="form-control" autocomplete="off" placeholder="{% trans "Trip Duration" %}" />
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn btn-primary pull-right">{% trans "Start Planning" %}</button>
+          </div>
+        </fieldset>
       </form>
     </div><!-- /.col-lg-4 -->
   </div><!-- /.row -->

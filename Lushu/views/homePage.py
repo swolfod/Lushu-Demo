@@ -4,9 +4,7 @@ __author__ = 'Swolfod'
 from utilities.djangoUtils import *
 from Lushu.models import *
 from operator import attrgetter
+from Lushu.consts import *
 
 def homePage(request):
-    majorCities = [city for city in MajorCity.objects.order_by("id")[:50]]
-    majorCities.sort(key = attrgetter('name_en'))
-
-    return secureRender(request, "home.html", {"majorCities": majorCities})
+    return secureRender(request, "home.html", {"areas": Areas})

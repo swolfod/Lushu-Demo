@@ -21,7 +21,7 @@ class Airport(models.Model):
 
     @property
     def title(self):
-        return self.name_en
+        return self.name_en + " (" + self.iata + ")"
 
     class Meta:
         db_table = "airport"

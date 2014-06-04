@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 
+{% load returnItem %}
 {% load staticfiles %}
 {% load i18n %}
 
@@ -28,17 +29,34 @@
     {% endif %}
 
     <div id="planInfo" class="col-md-4 col-md-offset-1 col-xs-12">
+      <div id="autoRoutes">
+        <p>
+          <button type="button" class="btn btn-info" onclick="updateRoute(defaultOneAirportRoute);">{% trans "Optimized route with same arriving and leaving airport" %}</button>
+        </p>
+        <p>
+          <button type="button" class="btn btn-info" onclick="updateRoute(defaultTwoAirportsRoute);">{% trans "Optimized route with different arriving and leaving airports" %}</button>
+        </p>
+
+        <h4>{% trans "Total distance about " %}<span id="totalDistance"></span> {% trans "km" %} </h4>
+        <h4>{% trans "Trip takes " %}<span id="totalDuration"></span> {% trans "days" %} </h4>
+        <p>
+          <button type="button" class="btn btn-default" onclick="reverseSites();">{% trans "Reverse route" %}</button>
+        </p>
+      </div>
       <form id="mainForm" method="post">
         {% csrf_token %}
         <ul id="routeList" class="list-group">
+          <li id="arrivingAirport" class="list-group-item"><img class="adp-marker" /><a href="javascript:selAirports();"></a></li>
           {% for sight in sights %}
             <li data-key="{{ sight.key }}" class="list-group-item">
               <span class='glyphicon glyphicon-move'></span>
+              <img class="adp-marker" />
               <button type="button" class="close" data-dismiss="alert" onclick="updateSight('{{ sight.key }}'); return true;" aria-hidden="true">&times;</button>
               <b>{{ sight.title }}</b> {% trans "for" %}
-              <input type="text" class="form-control" name="duration-{{ sight.key }}" value="{{ sight.duration }}" /> {% trans "days" %}
+              <input type="text" class="form-control" name="duration-{{ sight.key }}" onchange="durationChanged();" value="{{ sight.duration }}" /> {% trans "days" %}
             </li>
           {% endfor %}
+          <li id="leavingAirport" class="list-group-item"><img class="adp-marker" /><a href="javascript:selAirports();;"></a></li>
         </ul>
         <input type="hidden" id="hdnOrder" name="order" value="{{ sightsOrder }}" />
         <input type="hidden" id="hdnDistances" name="distances" value="{{ sightsDistances }}" />
@@ -50,114 +68,630 @@
     <div id="map" class="col-md-5 col-md-offset-1 col-sm-10 col-sm-offset-1 col-xs-12"></div>
   </div>
 
-  <script type="text/javascript">
-    var sights = {{ sightsJson|safe }};
-    var directionsService = new google.maps.DirectionsService();
-    var directionsDisplay = new google.maps.DirectionsRenderer();
+  <div class="modal fade" id="selAirportModal" tabindex="-1" role="dialog" aria-labelledby="selAirportTitle" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title" id="selAirportTitle">{% trans "Select airports" %}</h4>
+        </div>
+        <div class="modal-body">
+          <ul class="nav nav-pills">
+            <li class="dropdown">
+              <label>{% trans "Select arriving airport" %}: </label>
+              <a id="selArriving" role="button" data-toggle="dropdown" href="#"><span id="selArrivingTitle">{% trans "Ariving Airport" %}</span> <b class="caret"></b></a>
+              <ul id="airports1" class="dropdown-menu" role="menu" aria-labelledby="selArriving">
+                {% for airport in airports %}
+                  <li>
+                    <a href="javascript:selAirportClicked({{ airport.id }}, 'selArriving');">
+                      <h4>{{ airport.title }}</h4>
+                      <p>
+                        {% with closeSight=airport.sights.0 %}
+                          {{ closeSight.distance }}km {% trans "from " %} {{ closeSight.sightTitle }}
+                        {% endwith %}
+                      </p>
+                    </a>
+                  </li>
+                {% endfor %}
+              </ul>
+            </li>
+            <li class="dropdown">
+              <label>{% trans "Select leaving airport" %}: </label>
+              <a id="selLeaving" role="button" data-toggle="dropdown" href="#"><span id="selLeavingTitle">{% trans "Leaving Airport" %}</span> <b class="caret"></b></a>
+              <ul id="airports2" class="dropdown-menu" role="menu" aria-labelledby="selLeaving">
+                {% for airport in airports %}
+                  <li>
+                    <a href="javascript:selAirportClicked({{ airport.id }}, 'selLeaving');">
+                      <h4>{{ airport.title }}</h4>
+                      <p>
+                        {% with closeSight=airport.sights.0 %}
+                          {{ closeSight.distance }}km {% trans "from " %} {{ closeSight.sightTitle }}
+                        {% endwith %}
+                      </p>
+                    </a>
+                  </li>
+                {% endfor %}
+              </ul>
+              <input type="checkbox" id="sameAirportChk" onchange="sameAirportChecked(this);" />
+              <label for="sameAirportChk">{% trans "Use same airport" %}</label>
+            </li>
+          </ul>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" onclick="updateAirports(false);" data-dismiss="modal">{% trans "Change Airports" %}</button>
+          <button type="button" class="btn btn-primary" onclick="updateAirports(true);" data-dismiss="modal">{% trans "Change Airport And Optimize Route" %}</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Cancel" %}</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    function recalcRoute() {
-      var waypts  = [];
+  <script type="text/javascript">
+  var sights = {{ sightsJson|safe }};
+  var airports = {{ airportsJson|safe }};
+  var directionsService = new google.maps.DirectionsService();
+  var directionsDisplay = new google.maps.DirectionsRenderer();
+  var sightPaths = [];
+  var defaultOneAirportRoute = null, defaultTwoAirportsRoute = null;
+
+  function getSight(key) {
+    for (var i = 0; i < sights.length; i++) {
+      if (sights[i].key == key)
+        return sights[i]
+    }
+
+    return null;
+  }
+
+  function getAirport(id) {
+    for (var i = 0; i < airports.length; i++) {
+      if (airports[i].id == id)
+        return airports[i]
+    }
+
+    return null;
+  }
+
+  function recalcRoute() {
+    var routeSights = [];
+
+    var arrivingAirport = getAirport(parseInt($("#arrivingAirport").attr("data-airportId")));
+    routeSights.push(arrivingAirport);
+
+    for (var i = 0; i < sights.length; i++)
+      routeSights.push(sights[i]);
+
+    var leavingAirport = getAirport(parseInt($("#leavingAirport").attr("data-airportId")));
+    routeSights.push(leavingAirport);
+
+    var batches = [];
+    var itemsPerBatch = 10; // google API max - 1 start, 1 stop, and 8 waypoints
+    var itemsCounter = 0;
+    var wayptsExist = routeSights.length > 0;
+
+    while (wayptsExist) {
+      var subBatch = [];
+      var subItemsCounter = 0;
+
+      for (var j = itemsCounter; j < routeSights.length; j++) {
+        subItemsCounter++;
+        subBatch.push(routeSights[j]);
+        if (subItemsCounter == itemsPerBatch)
+          break;
+      }
+
+      itemsCounter += subItemsCounter;
+      batches.push(subBatch);
+      wayptsExist = itemsCounter < routeSights.length;
+      // If it runs again there are still points. Minus 1 before continuing to
+      // start up with end of previous tour leg
+      itemsCounter--;
+    }
+
+    var combinedResults;
+    var unsortedResults = [{}]; // to hold the counter and the results themselves as they come back, to later sort
+    var directionsResultsReturned = 0;
+
+    for (var k = 0; k < batches.length; k++) {
+      var lastIndex = batches[k].length - 1;
+      var start = new window.google.maps.LatLng(batches[k][0].lat, batches[k][0].lng);
+      var end = new window.google.maps.LatLng(batches[k][lastIndex].lat, batches[k][lastIndex].lng);
+
+      // trim first and last entry from array
+      var waypts = [];
+      for (var i = 1; i < lastIndex; i++)
+        waypts.push({
+          location: new window.google.maps.LatLng(batches[k][i].lat, batches[k][i].lng),
+          stopover: true
+        });
+
       var request = {
+        origin : start,
+        destination : end,
+        waypoints : waypts,
         optimizeWaypoints: false,
         travelMode: google.maps.TravelMode.DRIVING,
         unitSystem: google.maps.UnitSystem.METRIC
       };
 
-      for(var i = 0; i < sights.length; i++) {
-        var address = new google.maps.LatLng(sights[i].lat, sights[i].lng);
-        if (i == 0)
-          request.origin = address;
-        else if (i == sights.length - 1)
-          request.destination = address;
+      (function (kk) {
+        directionsService.route(request, function (result, status) {
+          if (status == window.google.maps.DirectionsStatus.OK) {
+            var unsortedResult = {
+              order : kk,
+              result : result
+            };
+            unsortedResults.push(unsortedResult);
+
+            directionsResultsReturned++;
+
+            if (directionsResultsReturned == batches.length) // we've received all the results. put to map
+            {
+              // sort the returned values into their correct order
+              unsortedResults.sort(function (a, b) {
+                return parseFloat(a.order) - parseFloat(b.order);
+              });
+
+              var count = 0;
+              for (var key in unsortedResults) {
+                if (unsortedResults[key].result != null) {
+                  if (unsortedResults.hasOwnProperty(key)) {
+                    if (count == 0) // first results. new up the combinedResults object
+                      combinedResults = unsortedResults[key].result;
+                    else {
+                      // only building up legs, overview_path, and bounds in my consolidated object. This is not a complete
+                      // directionResults object, but enough to draw a path on the map, which is all I need
+                      combinedResults.routes[0].legs = combinedResults.routes[0].legs.concat(unsortedResults[key].result.routes[0].legs);
+                      combinedResults.routes[0].overview_path = combinedResults.routes[0].overview_path.concat(unsortedResults[key].result.routes[0].overview_path);
+
+                      combinedResults.routes[0].bounds = combinedResults.routes[0].bounds.extend(unsortedResults[key].result.routes[0].bounds.getNorthEast());
+                      combinedResults.routes[0].bounds = combinedResults.routes[0].bounds.extend(unsortedResults[key].result.routes[0].bounds.getSouthWest());
+                    }
+                    count++;
+                  }
+                }
+              }
+              directionsDisplay.setDirections(combinedResults);
+
+              var distances = "";
+
+              // For each route, display summary information.
+              for (var i = 0; i < combinedResults.routes[0].legs.length; i++) {
+                if (i > 0)
+                  distances += ", ";
+                distances += combinedResults.routes[0].legs[i].distance.value;
+              }
+
+              $("#hdnDistances").val(distances);
+            }
+          }
+        });
+      })(k);
+    }
+  }
+
+  function updateSight(toRemove) {
+    var newSights = [];
+
+    var arrivingEle = $("#arrivingAirport");
+    var arrivingAirport = getAirport(parseInt(arrivingEle.attr("data-airportId")));
+
+    var leavingEle = $("#leavingAirport");
+    var leavingAirport = getAirport(parseInt(leavingEle.attr("data-airportId")));
+
+    var orderStr = "ap" + arrivingAirport.id;
+    $("#routeList").find("> li[data-key]").each(function(index, elem) {
+      var listItem = $(elem);
+      var newIndex = listItem.index();
+
+      var sightId = listItem.attr("data-key");
+      if (toRemove && sightId == toRemove)
+        return;
+
+      orderStr += ", ";
+      orderStr += sightId;
+
+      newSights.push(getSight(sightId));
+    });
+    orderStr += ", ap" + leavingAirport.id;
+
+    $("#hdnOrder").val(orderStr);
+    $("#hdnDistances").val("");
+
+    sights = newSights;
+
+    var totalDistance = 0;
+    for (var i = 0; i < sights.length - 1; i++)
+      totalDistance += calcCrow(sights[i].lat,  sights[i].lng, sights[i + 1].lat, sights[i + 1].lng);
+
+    totalDistance += calcCrow(arrivingAirport.lat,  arrivingAirport.lng, sights[0].lat, sights[0].lng);
+    totalDistance += calcCrow(leavingAirport.lat,  leavingAirport.lng, sights[sights.length - 1].lat, sights[sights.length - 1].lng);
+
+    if (toRemove)
+      updateOptimizedRoute();
+
+    $("#totalDistance").text(Math.floor(totalDistance * 1.3));
+    recalcRoute();
+
+    arrivingEle.find("img.adp-marker").attr("src", mapMarkerUrl(0));
+    leavingEle.find("img.adp-marker").attr("src", mapMarkerUrl(sights.length + 1));
+
+    for (var i = 0; i < sights.length; i++)
+      $("li[data-key=" + sights[i].key + "]").find("img.adp-marker").attr("src", mapMarkerUrl(i + 1));
+  }
+
+  function reverseSites() {
+    var arrivingEle = $("#arrivingAirport");
+    var arrivingAirportId = arrivingEle.attr("data-airportId");
+    var arrvingHtml = arrivingEle.find("> a").html();
+
+    var leavingEle = $("#leavingAirport");
+    arrivingEle.attr("data-airportId", leavingEle.attr("data-airportId"));
+    arrivingEle.find("> a").html(leavingEle.find("> a").html());
+
+    leavingEle.attr("data-airportId", arrivingAirportId);
+    leavingEle.find("> a").html(arrvingHtml);
+
+    var sightEles = [];
+    $("#routeList").find("li[data-key]").each(function(index, ele) {
+      sightEles.unshift($(ele));
+    });
+
+    for (var i = 0; i < sightEles.length; i++)
+      leavingEle.before(sightEles[i]);
+
+    updateSight();
+  }
+
+  function optimizeRoute(paths, passingTimes) {
+    paths.sort(function(path1, path2) {
+      return path1.distance - path2.distance;
+    });
+
+    var route = [];
+    var sightGroups = {};
+    var maxGroup = 1;
+
+    for (var i = 0; i < paths.length; i++) {
+      var pathSights = paths[i].key.split("-");
+      if (!(pathSights[0] in passingTimes) || !(pathSights[1] in passingTimes))
+        continue;
+
+      if (pathSights[0] in sightGroups && pathSights[1] in sightGroups &&
+          sightGroups[pathSights[0]] == sightGroups[pathSights[1]] && Object.size(passingTimes) > 2)
+        continue;
+
+      if (pathSights[0] in sightGroups) {
+        if (pathSights[1] in sightGroups && sightGroups[pathSights[0]] != sightGroups[pathSights[1]]) {
+          var hasMoreSights = false;
+          for (var sight in sightGroups) {
+            if ((sightGroups[sight] == sightGroups[pathSights[0]] || sightGroups[sight] == sightGroups[pathSights[1]]) &&
+                sight != pathSights[0] && sight != pathSights[1] && sight in passingTimes)
+            {
+              hasMoreSights = true;
+              break;
+            }
+          }
+
+          if (!hasMoreSights && Object.size(passingTimes) > 2)
+            continue;
+
+          var groupToChange = sightGroups[pathSights[1]];
+          for (var sight in sightGroups) {
+            if (sightGroups[sight] == groupToChange)
+              sightGroups[sight] = sightGroups[pathSights[0]];
+          }
+        }
         else
-          waypts.push({
-            location: address,
-            stopover: true
-          });
+          sightGroups[pathSights[1]] = sightGroups[pathSights[0]];
+      }
+      else if (pathSights[1] in sightGroups)
+        sightGroups[pathSights[0]] = sightGroups[pathSights[1]];
+      else {
+        sightGroups[pathSights[0]] = maxGroup;
+        sightGroups[pathSights[1]] = maxGroup;
+        maxGroup++;
       }
 
-      request.waypoints = waypts;
+      route.push(paths[i]);
 
-      directionsService.route(request, function(response, status) {
-        if (status == google.maps.DirectionsStatus.OK) {
-          directionsDisplay.setDirections(response);
+      passingTimes[pathSights[0]]--;
+      if (passingTimes[pathSights[0]] <= 0)
+        delete passingTimes[pathSights[0]];
 
-          var route = response.routes[0];
-          var distances = "";
+      passingTimes[pathSights[1]]--;
+      if (passingTimes[pathSights[1]] <= 0)
+        delete passingTimes[pathSights[1]];
 
-          // For each route, display summary information.
-          for (var i = 0; i < route.legs.length; i++) {
-            if (i > 0)
-              distances += ", ";
-            distances += route.legs[i].distance.value;
-          }
-
-          $("#hdnDistances").val(distances);
-        }
-      });
+      if (Object.size(passingTimes) == 0)
+        break;
     }
 
-    function updateSight(toRemove) {
-      var newSights = [];
+    return route;
+  }
 
-      var orderStr = "";
-      $('li', routeList).each(function(index, elem) {
-        var listItem = $(elem);
-        var newIndex = listItem.index();
+  function routePaths(route) {
+    var sightDic = {};
+    for (var i = 0; i < route.length; i++) {
+      var path = route[i];
+      var pathSights = path.key.split("-");
 
-        var sightId = listItem.attr("data-key");
-        if (toRemove && sightId == toRemove)
-          return;
+      if (!(pathSights[0] in sightDic))
+        sightDic[pathSights[0]] = {};
+      sightDic[pathSights[0]][pathSights[1]] = path.distance;
 
-        if (index > 0)
-          orderStr += ", ";
-        orderStr += sightId;
-
-        for(var i = 0; i < sights.length; i++) {
-          if (sights[i].key == sightId) {
-            newSights.push(sights[i]);
-            break;
-          }
-        }
-      });
-
-      $("#hdnOrder").val(orderStr);
-      $("#hdnDistances").val("");
-
-      sights = newSights;
-      recalcRoute();
+      if (!(pathSights[1] in sightDic))
+        sightDic[pathSights[1]] = {};
+      sightDic[pathSights[1]][pathSights[0]] = path.distance;
     }
 
-    function initialize() {
-      var myLatlng = new google.maps.LatLng(sights[0].lat, sights[0].lng);
-      var mapOptions = {
-        zoom: 4,
-        draggable: false,
-        center: myLatlng
-      };
+    return sightDic;
+  }
 
-      var map = new google.maps.Map(document.getElementById("map"), mapOptions);
-      var latlngbounds = new google.maps.LatLngBounds();
+  function constructRoute(pathDic, oriSightKey, dstSightKey) {
+    var route = [oriSightKey];
+    var distance = 0;
+    var currSight = oriSightKey;
+    while (currSight != dstSightKey || route.length < Object.size(pathDic)) {
+      var paths = pathDic[currSight];
+      for (var sightKey in paths) {
+        if (sightKey == dstSightKey && route.length < Object.size(pathDic) - 1)
+          continue;
 
-      for(var i = 0; i < sights.length; i++) {
-        var sightCoord = new google.maps.LatLng(sights[i].lat, sights[i].lng);
-        latlngbounds.extend(sightCoord);
+        if ($.inArray(sightKey, route) >= 0 && (sightKey != dstSightKey || dstSightKey != oriSightKey))
+          continue;
+
+        route.push(sightKey);
+        distance += paths[sightKey];
+        currSight = sightKey;
+        break;
+      }
+    }
+
+    return {
+      route: route,
+      distance: distance
+    };
+  }
+
+  function durationChanged() {
+    var totalDuration = 0;
+    $("#routeList").find("> li[data-key]").find("input[type='text']").each(function(index, elem) {
+      elem = $(elem);
+      var durationVal = $(elem).val();
+      if($.isNumeric(durationVal)) {
+        totalDuration += parseFloat(durationVal);
+        elem.parent().removeClass("has-error")
+      }
+      else
+        elem.parent().addClass("has-error")
+
+    });
+
+    $("#totalDuration").text(Math.ceil(totalDuration));
+  }
+
+  function updateAirport(arrivingAirport, leavingAirport) {
+    var arrivingEle = $("#arrivingAirport");
+    arrivingEle.find("> a").html("<b>{% trans "Arrive at" %} " + arrivingAirport.title + "</b>");
+    arrivingEle.attr("data-airportId", arrivingAirport.id);
+
+    var leavingAirportEle = $("#leavingAirport");
+    leavingAirportEle.find("> a").html("<b>{% trans "Leave from" %} " + leavingAirport.title + "</b>");
+    leavingAirportEle.attr("data-airportId", leavingAirport.id);
+  }
+
+  function updateRoute(route) {
+    var arrivingAirportId = parseInt(route.route[0].substring(2));
+    var arrivingAirport = getAirport(arrivingAirportId);
+
+    var leavingAirportId = parseInt(route.route[route.route.length - 1].substring(2));
+    var leavingAirport = getAirport(leavingAirportId);
+
+    updateAirport(arrivingAirport, leavingAirport);
+
+    var leavingAirportEle = $("#leavingAirport");
+    for (var i = 0; i < route.route.length; i++) {
+      var sightKey = route.route[i];
+      var liEle = $("li[data-key=" + sightKey + "]");
+      if (liEle.length)
+        leavingAirportEle.before(liEle);
+    }
+
+    updateSight();
+  }
+
+  function updateOptimizedRoute() {
+    var sightPasses = {};
+    for (var i = 0; i < sights.length; i++) {
+      sightPasses[sights[i].key] = 2;
+    }
+
+    var circleRoute = optimizeRoute(sightPaths, sightPasses);
+    var pathDic = routePaths(circleRoute);
+    var circleLength = 0;
+    var min1Diff = 99999, min1Sight1, min1Sight2, min1Airport;
+    var min2Diff = 99999, min2Sight1, min2Sight2, min2Airport1, min2Airport2;
+
+    for (var i = 0; i < circleRoute.length; i++) {
+      var path = circleRoute[i];
+      circleLength += path.distance;
+
+      var pathSights = path.key.split("-");
+      var sight1 = getSight(pathSights[0]), sight2 = getSight(pathSights[1]);
+
+      for (var j = 0; j < sight1.airports.length; j++) {
+        var sightAirport = getAirport(sight1.airports[j].airportId);
+        var distDiff = sight1.airports[j].distance + calcCrow(sightAirport.lat, sightAirport.lng, sight2.lat, sight2.lng) - path.distance;
+        if (distDiff < min1Diff) {
+          min1Diff = distDiff;
+          min1Sight1 = sight1;
+          min1Sight2 = sight2;
+          min1Airport = sightAirport;
+        }
       }
 
-      map.setCenter(latlngbounds.getCenter());
-      map.fitBounds(latlngbounds);
+      for (var j = 0; j < sight2.airports.length; j++) {
+        var sightAirport = getAirport(sight2.airports[j].airportId);
+        var distDiff = sight2.airports[j].distance + calcCrow(sightAirport.lat, sightAirport.lng, sight1.lat, sight1.lng) - path.distance;
+        if (distDiff < min1Diff) {
+          min1Diff = distDiff;
+          min1Sight1 = sight1;
+          min1Sight2 = sight2;
+          min1Airport = sightAirport;
+        }
+      }
 
-      directionsDisplay.setMap(map);
-      recalcRoute();
+      if (sight1.airports[0].distance + sight2.airports[0].distance - path.distance < min2Diff) {
+        min2Diff = distDiff;
+        min2Sight1 = sight1;
+        min2Sight2 = sight2;
+        min2Airport1 = getAirport(sight1.airports[0].airportId);
+        min2Airport2 = getAirport(sight2.airports[0].airportId);
+      }
+    }
 
-      var routeList = $("#routeList");
-      routeList.sortable({
-        handle: ".glyphicon-move",
-        update: updateSight
-      }).disableSelection();
+    defaultOneAirportRoute = constructRoute(pathDic, min1Sight1.key, min1Sight2.key);
+    defaultOneAirportRoute.route.unshift("ap" + min1Airport.id);
+    defaultOneAirportRoute.route.push("ap" + min1Airport.id);
+    defaultOneAirportRoute.distance += calcCrow(min1Airport.lat, min1Airport.lng, min1Sight1.lat, min1Sight1.lng);
+    defaultOneAirportRoute.distance += calcCrow(min1Airport.lat, min1Airport.lng, min1Sight2.lat, min1Sight2.lng);
+
+    defaultTwoAirportsRoute = constructRoute(pathDic, min2Sight1.key, min2Sight2.key);
+    defaultTwoAirportsRoute.route.unshift("ap" + min2Airport1.id);
+    defaultTwoAirportsRoute.route.push("ap" + min2Airport2.id);
+    defaultTwoAirportsRoute.distance += calcCrow(min2Airport1.lat, min2Airport1.lng, min2Sight1.lat, min2Sight1.lng);
+    defaultTwoAirportsRoute.distance += calcCrow(min2Airport2.lat, min2Airport2.lng, min2Sight2.lat, min2Sight2.lng);
+  }
+
+  function selAirports() {
+    var arrivingAirport = getAirport(parseInt($("#arrivingAirport").attr("data-airportId")));
+    $("#selArrivingTitle").text(arrivingAirport.title);
+    $("#selArriving").attr("data-airportId", arrivingAirport.id);
+
+    var leavingAirport = getAirport(parseInt($("#leavingAirport").attr("data-airportId")));
+    $("#selLeavingTitle").text(leavingAirport.title);
+    $("#selLeaving").attr("data-airportId", leavingAirport.id);
+
+    $("#selAirportModal").modal();
+  }
+
+  function sameAirportChecked(chkbox) {
+    chkbox = $(chkbox);
+    var liEle = chkbox.closest("li.dropdown");
+
+    if (chkbox.is(":checked"))
+      liEle.addClass("disabled");
+    else
+      liEle.removeClass("disabled");
+  }
+
+  function selAirportClicked(airportId, dropdownId) {
+    var dropdownEle = $("#" + dropdownId);
+    var airport = getAirport(airportId);
+
+    dropdownEle.find("> span").text(airport.title);
+    dropdownEle.attr("data-airportId", airport.id);
+  }
+
+  function updateAirportPaths(paths, airport) {
+    for (var i = 0; i < sights.length; i++) {
+      var sight = sights[i];
+
+      paths.push({
+        key: "ap" + airport.id + "-" + sight.key,
+        distance: calcCrow(airport.lat, airport.lng, sight.lat, sight.lng)
+      });
+    }
+  }
+
+  function updateAirports(toOptimize) {
+    var arrivingAirport = getAirport(parseInt($("#selArriving").attr("data-airportId")));
+    var leavingAirport;
+    if ($("#sameAirportChk").is(":checked"))
+      leavingAirport = arrivingAirport;
+    else
+      leavingAirport = getAirport(parseInt($("#selLeaving").attr("data-airportId")));
+
+    if (!toOptimize) {
+      updateAirport(arrivingAirport, leavingAirport);
+      updateSight();
+    }
+    else {
+      var passes = {};
+      for (var i = 0; i < sights.length; i++) {
+        passes[sights[i].key] = 2;
+      }
+
+      var paths = sightPaths.slice(0);
+      var arrivingKey = "ap" + arrivingAirport.id;
+      var leavingKey = "ap" + leavingAirport.id;
+      if (arrivingKey == leavingKey) {
+        passes[arrivingKey] = 2;
+        updateAirportPaths(paths, arrivingAirport);
+      }
+      else {
+        passes[arrivingKey] = 1;
+        passes[leavingKey] = 1;
+        updateAirportPaths(paths, arrivingAirport);
+        updateAirportPaths(paths, leavingAirport);
+      }
+
+      var route = optimizeRoute(paths, passes);
+      var pathDic = routePaths(route);
+      var orderedRoute = constructRoute(pathDic, arrivingKey, leavingKey);
+      updateRoute(orderedRoute);
+    }
+  }
+
+  function initialize() {
+    for (var i = 0; i < sights.length; i++) {
+      var oriSight = sights[i];
+
+      for (var j = i + 1; j < sights.length; j++) {
+        var dstSight = sights[j];
+        var distance = calcCrow(oriSight.lat, oriSight.lng, dstSight.lat, dstSight.lng);
+        sightPaths.push({
+          key: oriSight.key + "-" + dstSight.key,
+          distance: distance
+        })
+      }
+    }
+
+    updateOptimizedRoute();
+
+    var myLatlng = new google.maps.LatLng(sights[0].lat, sights[0].lng);
+    var mapOptions = {
+      zoom: 4,
+      draggable: false,
+      center: myLatlng
+    };
+
+    var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+    var latlngbounds = new google.maps.LatLngBounds();
+
+    for(var i = 0; i < sights.length; i++) {
+      var sightCoord = new google.maps.LatLng(sights[i].lat, sights[i].lng);
+      latlngbounds.extend(sightCoord);
+    }
+
+    map.setCenter(latlngbounds.getCenter());
+    map.fitBounds(latlngbounds);
+
+    directionsDisplay.setMap(map);
+
+    updateRoute(defaultOneAirportRoute);
+
+    var routeList = $("#routeList");
+    routeList.sortable({
+      handle: ".glyphicon-move",
+      update: updateSight
+    }).disableSelection();
+
+    durationChanged();
   }
 
   google.maps.event.addDomListener(window, 'load', initialize);
-  
+
   </script>
 {% endblock %}
