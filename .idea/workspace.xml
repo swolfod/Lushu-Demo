@@ -2,12 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lushu/views/datePlanning.py" afterPath="$PROJECT_DIR$/Lushu/views/datePlanning.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/css/datePlan.css" afterPath="$PROJECT_DIR$/static/css/datePlan.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/datePlan.html" afterPath="$PROJECT_DIR$/templates/datePlan.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Lushu.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1401856715624" ignored="false" />
+    <file path="/Dummy.txt" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1401857380641" ignored="false" />
     <file path="/settings.py" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1400946913169" ignored="false" />
     <file path="/a.dummy" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1401853920225" ignored="false" />
     <file path="/landing.py" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1400536240895" ignored="false" />
@@ -56,8 +57,8 @@
     <file path="/selSights.css" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1401549322511" ignored="false" />
     <file path="/utils.py" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1401543240762" ignored="false" />
     <file path="/djangoUtils.py" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1400919264484" ignored="false" />
-    <file path="/datePlan.html" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1401856445201" ignored="false" />
-    <file path="/datePlan.css" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1401353095123" ignored="false" />
+    <file path="/datePlan.html" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1401857714249" ignored="false" />
+    <file path="/datePlan.css" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1401857641114" ignored="false" />
     <file path="/a.html" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1401339819524" ignored="false" />
     <file path="/detailPlan.html" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1401851038864" ignored="false" />
     <file path="I:/PycharmProjects/NationalScraper/wikiNationalScraper.py" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1401057936000" ignored="false" />
@@ -119,7 +120,7 @@
       <file leaf-file-name="detailPlan.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/detailPlan.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="352" column="9" selection-start="13054" selection-end="13054" vertical-scroll-proportion="-61.75">
+            <state line="186" column="16" selection-start="6985" selection-end="6993" vertical-scroll-proportion="-2.3275862">
               <folding />
             </state>
           </provider>
@@ -155,16 +156,7 @@
       <file leaf-file-name="datePlan.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/datePlan.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="682" column="26" selection-start="25625" selection-end="25625" vertical-scroll-proportion="0.37757438">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="settings.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Lushu/settings.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="46" column="59" selection-start="1256" selection-end="1256" vertical-scroll-proportion="0.0">
+            <state line="36" column="135" selection-start="1616" selection-end="1616" vertical-scroll-proportion="0.50800914">
               <folding />
             </state>
           </provider>
@@ -174,6 +166,15 @@
         <entry file="file://$PROJECT_DIR$/Lushu/utils.py">
           <provider selected="true" editor-type-id="text-editor">
             <state line="50" column="43" selection-start="1698" selection-end="1698" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="datePlan.css" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/static/css/datePlan.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="21" column="23" selection-start="223" selection-end="223" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -215,7 +216,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/static/css/home.css" />
         <option value="$PROJECT_DIR$/Lushu/consts.py" />
         <option value="$PROJECT_DIR$/Lushu/utils.py" />
         <option value="$PROJECT_DIR$/static/css/selSights.css" />
@@ -229,8 +229,9 @@
         <option value="$PROJECT_DIR$/Lushu/views/selSights.py" />
         <option value="$PROJECT_DIR$/Lushu/settings.py" />
         <option value="$PROJECT_DIR$/utilities/djangoUtils.py" />
-        <option value="$PROJECT_DIR$/templates/datePlan.html" />
         <option value="$PROJECT_DIR$/Lushu/views/datePlanning.py" />
+        <option value="$PROJECT_DIR$/static/css/datePlan.css" />
+        <option value="$PROJECT_DIR$/templates/datePlan.html" />
       </list>
     </option>
   </component>
@@ -696,7 +697,11 @@
       <created>1401856717773</created>
       <updated>1401856717773</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Date planning bug fixing">
+      <created>1401857382953</created>
+      <updated>1401857382953</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -761,7 +766,7 @@
     <option name="MAXIMUM_HISTORY_ROWS" value="1000" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Client caching removing" />
+    <option name="LAST_COMMIT_MESSAGE" value="Date planning bug fixing" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -794,6 +799,7 @@
     <MESSAGE value="touch sortable testing 13&#10;" />
     <MESSAGE value="Second testing version uploading." />
     <MESSAGE value="Client caching removing" />
+    <MESSAGE value="Date planning bug fixing" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -801,13 +807,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Lushu/consts.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="44" column="1" selection-start="908" selection-end="908" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Lushu/models/airport.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="23" column="51" selection-start="704" selection-end="704" vertical-scroll-proportion="0.0">
@@ -847,13 +846,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Lushu/utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="43" selection-start="1698" selection-end="1698" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Lushu/settings.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="46" column="59" selection-start="1256" selection-end="1256" vertical-scroll-proportion="0.0">
@@ -882,13 +874,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/detailPlan.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="352" column="9" selection-start="13054" selection-end="13054" vertical-scroll-proportion="-61.75">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Lushu/views/detailPlanning.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="204" column="69" selection-start="7035" selection-end="7035" vertical-scroll-proportion="0.0">
@@ -910,9 +895,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Lushu/utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="50" column="43" selection-start="1698" selection-end="1698" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/static/css/datePlan.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="21" column="23" selection-start="223" selection-end="223" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/detailPlan.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="186" column="16" selection-start="6985" selection-end="6993" vertical-scroll-proportion="-2.3275862">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/templates/datePlan.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="682" column="26" selection-start="25625" selection-end="25625" vertical-scroll-proportion="0.37757438">
+        <state line="36" column="135" selection-start="1616" selection-end="1616" vertical-scroll-proportion="0.50800914">
           <folding />
         </state>
       </provider>
