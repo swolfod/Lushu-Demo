@@ -1,27 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" name="Default" comment="touch sortable testing 13&#10;">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lushu/models/airport.py" afterPath="$PROJECT_DIR$/Lushu/models/airport.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/js/base.js" afterPath="$PROJECT_DIR$/static/js/base.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lushu/consts.py" afterPath="$PROJECT_DIR$/Lushu/consts.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/datePlan.html" afterPath="$PROJECT_DIR$/templates/datePlan.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lushu/views/datePlanning.py" afterPath="$PROJECT_DIR$/Lushu/views/datePlanning.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/detailPlan.html" afterPath="$PROJECT_DIR$/templates/detailPlan.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lushu/views/detailPlanning.py" afterPath="$PROJECT_DIR$/Lushu/views/detailPlanning.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/css/home.css" afterPath="$PROJECT_DIR$/static/css/home.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/home.html" afterPath="$PROJECT_DIR$/templates/home.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lushu/views/homePage.py" afterPath="$PROJECT_DIR$/Lushu/views/homePage.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/static/css/selSights.css" afterPath="$PROJECT_DIR$/static/css/selSights.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/selSights.html" afterPath="$PROJECT_DIR$/templates/selSights.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lushu/views/selSights.py" afterPath="$PROJECT_DIR$/Lushu/views/selSights.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/templates/blocks/sightThumb.html" afterPath="$PROJECT_DIR$/templates/blocks/sightThumb.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lushu/utils.py" afterPath="$PROJECT_DIR$/Lushu/utils.py" />
+    <list default="true" id="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utilities/djangoUtils.py" afterPath="$PROJECT_DIR$/utilities/djangoUtils.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Lushu/settings.py" afterPath="$PROJECT_DIR$/Lushu/settings.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Lushu.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1401855163228" ignored="false" />
+    <file path="/Dummy.txt" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1401855195286" ignored="false" />
     <file path="/settings.py" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1400946913169" ignored="false" />
     <file path="/a.dummy" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1401853920225" ignored="false" />
     <file path="/landing.py" changelist="8bf0fe7b-cc1c-4d93-86c3-0f5e5c2ad063" time="1400536240895" ignored="false" />
@@ -130,24 +117,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="djangoUtils.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/utilities/djangoUtils.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="265" column="4" selection-start="8635" selection-end="8635" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="detailPlanning.py" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Lushu/views/detailPlanning.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="215" column="24" selection-start="7281" selection-end="7281" vertical-scroll-proportion="0.0">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="selSights.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Lushu/views/selSights.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -166,19 +135,37 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="datePlan.html" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="datePlan.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/datePlan.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="26" selection-start="619" selection-end="619" vertical-scroll-proportion="0.61044174">
+            <state line="16" column="26" selection-start="619" selection-end="619" vertical-scroll-proportion="-10.857142">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="detailPlan.html" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/templates/detailPlan.html">
+      <file leaf-file-name="settings.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Lushu/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="352" column="9" selection-start="13054" selection-end="13054" vertical-scroll-proportion="-5.571429">
+            <state line="46" column="59" selection-start="1256" selection-end="1256" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="utils.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Lushu/utils.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="50" column="43" selection-start="1698" selection-end="1698" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="djangoUtils.py" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/utilities/djangoUtils.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="187" column="49" selection-start="6411" selection-end="6411" vertical-scroll-proportion="0.6827458">
               <folding />
             </state>
           </provider>
@@ -231,8 +218,6 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/static/css/datePlan.css" />
-        <option value="$PROJECT_DIR$/Lushu/views/homePage.py" />
         <option value="$PROJECT_DIR$/static/css/home.css" />
         <option value="$PROJECT_DIR$/Lushu/consts.py" />
         <option value="$PROJECT_DIR$/Lushu/utils.py" />
@@ -247,6 +232,8 @@
         <option value="$PROJECT_DIR$/Lushu/views/selSights.py" />
         <option value="$PROJECT_DIR$/Lushu/views/datePlanning.py" />
         <option value="$PROJECT_DIR$/templates/datePlan.html" />
+        <option value="$PROJECT_DIR$/Lushu/settings.py" />
+        <option value="$PROJECT_DIR$/utilities/djangoUtils.py" />
       </list>
     </option>
   </component>
@@ -297,6 +284,20 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="Lushu" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Lushu" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Lushu" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="utilities" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -686,19 +687,24 @@
       <created>1401352993056</created>
       <updated>1401352993056</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="Second testing version uploading.">
+      <created>1401855199625</created>
+      <updated>1401855199625</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="0" />
     <editor active="false" />
     <layout>
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295964" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295964" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3295964" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32976446" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26927194" sideWeight="0.6704036" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.26927194" sideWeight="0.6704036" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39798206" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -707,7 +713,6 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3295964" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -751,7 +756,7 @@
     <option name="MAXIMUM_HISTORY_ROWS" value="1000" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="touch sortable testing 13&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="Second testing version uploading." />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -782,6 +787,7 @@
     <MESSAGE value="undraggable map&#10;" />
     <MESSAGE value="touch sortable testing 12&#10;" />
     <MESSAGE value="touch sortable testing 13&#10;" />
+    <MESSAGE value="Second testing version uploading." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -789,23 +795,9 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/static/css/selSights.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="19" selection-start="110" selection-end="110" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Lushu/consts.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="44" column="1" selection-start="908" selection-end="908" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Lushu/utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="38" column="26" selection-start="1217" selection-end="1217" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -829,13 +821,6 @@
     <entry file="file://$PROJECT_DIR$/static/js/base.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="30" column="12" selection-start="754" selection-end="754" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/utilities/djangoUtils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="265" column="4" selection-start="8635" selection-end="8635" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -900,7 +885,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/datePlan.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="26" selection-start="619" selection-end="619" vertical-scroll-proportion="0.61044174">
+        <state line="16" column="26" selection-start="619" selection-end="619" vertical-scroll-proportion="-10.857142">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Lushu/utils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="50" column="43" selection-start="1698" selection-end="1698" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Lushu/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="46" column="59" selection-start="1256" selection-end="1256" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utilities/djangoUtils.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="187" column="49" selection-start="6411" selection-end="6411" vertical-scroll-proportion="0.6827458">
           <folding />
         </state>
       </provider>

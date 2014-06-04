@@ -180,6 +180,17 @@ class ForceDefaultLanguageMiddleware(object):
             del request.META['HTTP_ACCEPT_LANGUAGE']
 
 
+class NoCacheMiddleware(object):
+
+    def process_response(self, request, response):
+
+        response['Pragma'] = 'no-cache'
+        response['Cache-Control'] = 'max-age=3600 must-revalidate proxy-revalidate'
+        response['Expires'] = '0'
+
+        return response
+
+
 def SmartTruncate(content, length=100, suffix='...'):
     if len(content) <= length:
         return content
